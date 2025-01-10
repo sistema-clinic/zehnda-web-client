@@ -1,0 +1,22 @@
+export default {
+    reset_title: 'Cambiar contraseña',
+    reset_password: 'Nueva contraseña',
+    reset_password_confirm: 'Confirmar contraseña',
+    reset_submit: 'Cambiar contraseña',
+    reset_return: 'Volver al inicio de sesión',
+    reset_empty_password: 'Por favor, ingrese una contraseña',
+    reset_empty_password_confirm: 'Por favor, confirme su contraseña',
+    reset_not_match: 'Las contraseñas no coinciden',
+    reset_weak_password: 'La contraseña debe tener al menos 6 caracteres',
+    reset_recent_login: 'Esta operación es sensible y requiere que haya iniciado sesión recientemente',
+    reset_error: 'Error al cambiar la contraseña',
+    reset_success: 'Contraseña actualizada exitosamente',
+    reset_prompt_label : "Elige una contraseña",
+    reset_weak_label : "Demasiado simple",
+    reset_medium_label : "Complejidad media",
+    reset_strong_label : "Contraseña compleja",
+    reset_invalid_action : "Código de acción inválido", 
+    reset_expired_action : "El código de reinicio de contraseña ha expirado", 
+    reset_user_not_found : "El usuario no existe", 
+    reset_error_code : "Se ha producido un error. Por favor, inténtelo de nuevo"
+} 

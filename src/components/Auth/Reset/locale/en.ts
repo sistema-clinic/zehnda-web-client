@@ -1,0 +1,22 @@
+export default {
+    reset_title: 'Change Password',
+    reset_password: 'New Password',
+    reset_password_confirm: 'Confirm Password',
+    reset_submit: 'Change Password',
+    reset_return: 'Back to login',
+    reset_empty_password: 'Please enter a password',
+    reset_empty_password_confirm: 'Please confirm your password',
+    reset_not_match: 'Passwords do not match',
+    reset_weak_password: 'Password should be at least 6 characters',
+    reset_recent_login: 'This operation is sensitive and requires recent authentication',
+    reset_error: 'Error changing password',
+    reset_success: 'Password successfully updated',
+    reset_prompt_label : "Choose a password", 
+    reset_weak_label : "Too simple", 
+    reset_medium_label : "Average complexity", 
+    reset_strong_label : "Complex password", 
+    reset_invalid_action : "Invalid action code", 
+    reset_expired_action : "The password reset code has expired",
+    reset_user_not_found : "The user does not exist", 
+    reset_error_code : "An error occurred. Please try again"
+} 

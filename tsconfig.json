@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true, // Evita chequear los módulos de las librerías
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@redux/*": ["src/global/redux/*"],
+      "@locale/*": ["src/global/locale/*"],
+      "@clients/*": ["./src/utils/database/*"],
+      "@firebaseapi/*": ["src/utils/firebaseapi/*"],
+      "@providers/*": ["./src/contexts/*"],
+      "@assets/*": ["./src/assets/*"],
+    },
+    "types": [
+      "node"
+    ],
+    "strict": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}

@@ -1,0 +1,26 @@
+
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@import "primereact/resources/themes/lara-light-indigo/theme.css"; /* Tema */
+@import "primeicons/primeicons.css"; /* Iconos */
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+body {
+    @apply font-sans; 
+}
+
+.pointerclick {
+    cursor: pointer;
+}
+
+.logocolor {
+    color: #0AB5E7;
+}
