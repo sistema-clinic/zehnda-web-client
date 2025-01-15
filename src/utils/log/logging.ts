@@ -10,13 +10,13 @@ class Logger {
         return Logger.instance;
     }
 
-    log(message?: any): void {
+    log(message?: any, options?: any): void {
         if(this.isEnabled)
-            console.log(message);
+            console.log(message, options);
     }
 
-    error(message?: any): void {
-        console.error(message);
+    error(message?: any, options?: any): void {
+        console.error(message, options);
     }
 }
 

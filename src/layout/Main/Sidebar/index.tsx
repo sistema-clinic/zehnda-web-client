@@ -1,12 +1,12 @@
 import { Sidebar, Menu, MenuItem, SubMenu, MenuItemStyles, menuClasses } from 'react-pro-sidebar';
 import { useState, useEffect } from 'react';
-import Graph from '@/modules/Main/Sidebar/Icons/Graph';
-import Doc from '@/modules/Main/Sidebar/Icons/Doc';
-import Calendar from '@/modules/Main/Sidebar/Icons/Calendar';
-import SidebarBadge from '@/modules/Main/Sidebar/Badge';
-import SidebarHeader from '@/modules/Main/Sidebar/Header';
+import Graph from '@layout/Main/Sidebar/Icons/Graph';
+import Doc from '@layout/Main/Sidebar/Icons/Doc';
+import Calendar from '@layout/Main/Sidebar/Icons/Calendar';
+import SidebarBadge from '@layout/Main/Sidebar/Badge';
+import SidebarHeader from '@layout/Main/Sidebar/Header';
 import React from 'react';
-import SidebarFooter from '@/modules/Main/Sidebar/Footer';
+import SidebarFooter from '@layout/Main/Sidebar/Footer';
 import './index.scss';
 
 type Theme = 'light' | 'dark';
@@ -20,7 +20,7 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 const SidebarMenu: React.FC = () => {
-    const [theme, setTheme] = useState<Theme>('dark');
+    const [theme, setTheme] = useState<Theme>('light');
     const [hasImage, setHasImage] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [rtl, setRtl] = useState(false);
@@ -126,7 +126,7 @@ const SidebarMenu: React.FC = () => {
                 rootStyles={{
                     color: themes[theme].sidebar.color,
                     display: hideSidebar ? 'none' : 'block',
-                    transition: 'all 0.3s ease-in-out',
+                    transition: 'all 0.3s ease-in-out'
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                         

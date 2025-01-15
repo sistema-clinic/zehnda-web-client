@@ -8,7 +8,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyC4a6YgSvWWB3ov-NpAU_EIgWZrHNnt1Mo",
   authDomain: import.meta.env.VITE_DOMAIN,
-  projectId: "zehnda-dev",
+  projectId: "projects/zehnda-dev",
   storageBucket: "zehnda-dev.firebasestorage.app",
   messagingSenderId: "1034839670338",
   appId: "1:1034839670338:web:5fc4d0c3499de01ebef7db",

@@ -5,7 +5,6 @@ import { Button } from 'primereact/button';
 import { useIntl } from 'react-intl';
 import { FloatLabel } from 'primereact/floatlabel';
 import { Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/auth/auth';
 import Logger from '@/utils/log/logging';
 import { motion } from "motion/react"
 import { Toast } from 'primereact/toast';
@@ -162,7 +161,7 @@ const Signin: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
             >
                 <main className="w-full h-[calc(100vh-9rem)] flex flex-col self-center place-content-center place-items-center">
-                    <div className="space-y-5 p-6 shadow-xl border rounded-xl">
+                    <div className="space-y-5 p-6 shadow-xl lg:border rounded-xl">
                         <div className="text-left space-y-3 lg:w-96 sm:w-80 w-80">
                             <h2 className='text-3xl'>{String(messages.signin_new)}</h2>             
                         </div>
@@ -233,5 +232,3 @@ const Signin: React.FC = () => {
 }
 
 export default Signin;
-
-// TODO: Verificar el oobCode cuando la página cargue para validar que el código de verificación sea válido

@@ -1,5 +1,5 @@
-import userReducer from '../../firebaseapi/redux/slice';
+import authReducer from '../../firebaseapi/redux/slice';
 
 export default {
-    userReducer
+    authReducer
 }

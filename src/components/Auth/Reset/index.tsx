@@ -8,9 +8,6 @@ import Logger from '@/utils/log/logging';
 import { doConfirmPasswordReset, doVerifyPasswordResetCode } from '@firebaseapi/authUtil';
 import { motion } from "motion/react";
 import { Link, useSearchParams } from 'react-router-dom';
-import { InputText } from 'primereact/inputtext';
-import Loader from '@/components/Loader';
-import { AuthMode } from '@/global/enums/auth';
 
 const Reset: React.FC = () => {
     const [searchParams] = useSearchParams();
@@ -190,7 +187,7 @@ const Reset: React.FC = () => {
                 
                 <main className="w-full h-[calc(100vh-9rem)] flex flex-col self-center place-content-center place-items-center">
                     {!isChanged ? 
-                        <div className="space-y-5 p-6 shadow-xl border rounded-xl">
+                        <div className="space-y-5 p-6 shadow-xl lg:border rounded-xl">
                             <div className="text-left space-y-3 lg:w-96 sm:w-80 w-80">
                                 <h2 className='text-3xl'>{String(messages.reset_title)}</h2>             
                             </div>

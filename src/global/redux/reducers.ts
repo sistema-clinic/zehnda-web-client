@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 import commonReducer from './slice'
-import modules from '../../components/global/redux/reducers';
+import components from '../../components/global/redux/reducers';
 import utils from '../../utils/global/redux/reducers'; 
+import modules from '../../modules/global/redux/reducers';
 
 const reducersModules = {
-    ...modules, 
+    ...components, 
     ...utils, 
+    ...modules,
     commonReducer
 };
 

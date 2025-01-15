@@ -7,8 +7,7 @@ import { FloatLabel } from 'primereact/floatlabel';
 import { Link } from 'react-router-dom';
 import { motion } from "motion/react"
 import { Toast } from 'primereact/toast';
-import { doPasswordReset, doSignInWithEmailAndPassword, doSignInWithGoogle } from '@firebaseapi/authUtil'
-import { useSelector } from 'react-redux';
+import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '@firebaseapi/authUtil'
 import { useAuth } from '@/contexts/auth/auth';
 import Logger from '@/utils/log/logging';
 

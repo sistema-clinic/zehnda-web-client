@@ -1,10 +1,10 @@
 import  React, { useContext,  useEffect, useState } from "react";
 import { auth } from "@firebaseapi/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-import { getUser } from '@redux/actions'
 import { useAppDispatch } from '@redux/store'
 import { useSelector } from "react-redux";
 import Logger from "@utils/log/logging";
+import { getAuthInfo } from "@/utils/firebaseapi/redux/slice";
 
 const AuthContext = React.createContext({});
 
@@ -18,19 +18,23 @@ export const AuthProvider = ({ children }) => {
     const [isEmailUser, setIsEmailUser] = useState(false);
     const [isGoogleUser, setIsGoogleUser] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [internalUserdata, setInternalUserdata] = useState(null);
     const log = Logger.getInstance();
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
         return unsubscribe;
-      }, []);
+    }, []);
       
-    const userInternalAuth = useSelector((state : any) => state.userReducer.userData);
+    const userInternalAuth = useSelector((state : any) => state.authReducer);
     const dispatch = useAppDispatch();
 
-    async function initializeUser(user: any) {
-
-        log.log(userInternalAuth)
+    useEffect(() => {
+        setInternalUserdata(userInternalAuth)
+        log.log("userInternalAuth: ", userInternalAuth)
+      }, [userInternalAuth]);
+      
+    async function initializeUser(user: any) {    
         log.log(user)
         if (user) {
             setCurrentUser({ ...user });
@@ -38,11 +42,13 @@ export const AuthProvider = ({ children }) => {
                 (provider: { providerId: string }) => provider.providerId === "password"
             );
             if(isEmail)
-            setIsEmailUser(isEmail);
+                setIsEmailUser(isEmail);
             else
-            setIsGoogleUser(!isEmail)
-            //const userCred = await getRedirectResult(auth);
-            dispatch(getUser({user : user, isLogin: user ? true : false, isloading: false}))
+                setIsGoogleUser(!isEmail)
+
+            setUserLoggedIn(true);
+
+            await dispatch(getAuthInfo({uid : user.uid, token: user.accessToken}))
         }
         else{
             setCurrentUser(null);
@@ -57,7 +63,7 @@ export const AuthProvider = ({ children }) => {
         isGoogleUser,
         currentUser,
         setCurrentUser,
-        userInternalAuth
+        internalUserdata
       };
 
     return (

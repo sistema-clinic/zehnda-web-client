@@ -3,7 +3,10 @@ let locales = {
     warning : "Advertencia"
 }
 
-import welcome from '@components/global/locale/es'
-locales = { ...locales, ...welcome };
+import components from '@components/global/locale/es'
+locales = { ...locales, ...components };
+
+import modules from '@modules/global/locale/es'
+locales = { ...locales, ...modules };
 
 export default locales

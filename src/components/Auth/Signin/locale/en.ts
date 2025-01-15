@@ -19,4 +19,5 @@ export default {
     signin_email_in_use : "Email already in use",
     signin_weak_password : "Weak password, 6 characters minimum",
     signin_error: "An error occurred, please try again",
+    
 }

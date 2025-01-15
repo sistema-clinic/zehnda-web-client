@@ -1,12 +1,10 @@
-import { useState } from 'react'
 import { useSelector } from 'react-redux';
 import './App.css'
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { IntlProvider } from 'react-intl';
-import MainPage from '@modules/Main/index'
+import MainPage from '@layout/Main/index'
 import locale from '@locale/index'
-import { PrimeReactProvider, PrimeReactContext } from 'primereact/api';
-//import Login from '@components/Login';
+import { PrimeReactProvider } from 'primereact/api';
 import LoginPage from '@modules/Auth/Login';
 import SigninPage from '@modules/Auth/Signin';
 import { AuthProvider } from '@providers/auth/auth'

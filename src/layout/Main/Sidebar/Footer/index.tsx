@@ -1,6 +1,6 @@
 import { SidebarFooterProps } from '@/global/interfaces';
 import styled from '@emotion/styled';
-import Toggler from '@/modules/Main/Sidebar/Icons/Toggler';
+import Toggler from '@layout/Main/Sidebar/Icons/Toggler';
 
 const StyledSidebarFooter = styled.div`
   width: 50%;

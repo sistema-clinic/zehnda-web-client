@@ -1,5 +1,5 @@
-import { getUser } from '../../firebaseapi/redux/slice';
+import { getAuthInfo } from '../../firebaseapi/redux/slice';
 
 export  {
-    getUser
+    getAuthInfo as getUser
 }

@@ -17,6 +17,7 @@ export default defineConfig({
       { find: '@firebaseapi', replacement: path.resolve(__dirname, 'src/utils/firebaseapi') },
       { find: '@providers', replacement: path.resolve(__dirname, 'src/contexts') },
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
+      { find: '@layout', replacement: path.resolve(__dirname, 'src/layout') },
     ]
   }
 })

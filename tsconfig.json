@@ -13,6 +13,7 @@
       "@firebaseapi/*": ["src/utils/firebaseapi/*"],
       "@providers/*": ["./src/contexts/*"],
       "@assets/*": ["./src/assets/*"],
+      "@layout/*": ["./src/layout/*"],
     },
     "types": [
       "node"

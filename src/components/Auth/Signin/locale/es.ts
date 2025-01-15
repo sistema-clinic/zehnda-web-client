@@ -12,7 +12,7 @@ export default {
     signin_not_match : "Las contraseñas no coinciden",
     signin_warning : "Advertencia",
     signin_invalid_email : "Debes ingresar un correo electrónico válido",
-    signin_promptLabel : "Elige una contraseña",
+    signin_prompt_label : "Elige una contraseña",
     signin_weak_label : "Demasiado simple",
     signin_medium_label : "Complejidad media",
     signin_strong_label : "Contraseña compleja",

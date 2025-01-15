@@ -1,32 +1,51 @@
 import { Menubar } from 'primereact/menubar';
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';  
+import { BreadCrumb } from 'primereact/breadcrumb';
 import { OverlayPanel } from 'primereact/overlaypanel';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/contexts/auth/auth';
 import userImage from '@/assets/user.svg'
 import { Menu } from 'primereact/menu';
 import { doSignOut } from '@/utils/firebaseapi/authUtil';
 import { useNavigate } from 'react-router-dom';
+import { changePage } from '@/global/redux/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/global/redux/store';
+import Logger from '@/utils/log/logging';
 
 const Header: React.FC = () => {
     const op = useRef<OverlayPanel>(null);
     const user : any = useAuth();
     const [avatarUrl, setAvatarUrl] = useState<string>(userImage);
     const navigate = useNavigate();
-
+    const dispatch: AppDispatch = useDispatch();
+    const log = Logger.getInstance();
+    const commonReducer = useSelector((state : any) => state.commonReducer);
+    
     const menuHandler = (item) => {
-        console.log(item)
+        log.log(item);
         switch(item.id) {
             case '1':
+                dispatch(changePage({page : 'profile'}))
                 break;
             case '2':
+                dispatch(changePage({page : 'profile'}))
+                break;
+            case '3':
+                dispatch(changePage({page : 'changePassword'}))
+                break;
+            case '4':
                 doSignOut().then(() => {
                     navigate('/login');
                 });
                 break;
         }
     }
+
+    useEffect(() => {
+        log.log(commonReducer);
+    }, [commonReducer]);
 
     useEffect(() => {
         const preloadImage = async (url: string) => {
@@ -38,7 +57,6 @@ const Header: React.FC = () => {
                     resolve(url);
                 };
                 img.onerror = (e) => {
-                    console.error('Error loading image');
                     setAvatarUrl(userImage);
                     reject();
                 };
@@ -47,7 +65,7 @@ const Header: React.FC = () => {
 
         if (user.currentUser?.photoURL) {
             preloadImage(user.currentUser.photoURL).catch(() => {
-                console.error('Failed to load user photo');
+
             });
         }
     }, [user.currentUser?.photoURL]);
@@ -136,12 +154,21 @@ const Header: React.FC = () => {
         {
             separator: true
         },
-        { label: 'Profile',
+        { label: 'Settings',
             items:[
-                { label: 'Logout', id : '2', icon: 'pi pi-sign-out', template: itemRenderer }
+                { label: 'Profile', id : '2', icon: 'pi pi-user-edit', template: itemRenderer },
+                { label: 'Change Password', id : '3', icon: 'pi pi-key', template: itemRenderer }
+            ]
+        },
+        { label: 'Logout',
+            items:[
+                { label: 'Logout', id : '4', icon: 'pi pi-sign-out', template: itemRenderer }
             ]
         }
     ];
+
+    const home = { icon: 'pi pi-home', url: '/main' }
+
     const end = (
         <div className="flex align-items-center gap-2">
             <Avatar 
@@ -167,10 +194,20 @@ const Header: React.FC = () => {
                 borderBottom: '1px solid #e5e7eb', 
                 borderTop: '0px solid #e5e7eb', 
                 borderLeft: '0px solid #e5e7eb',
-                borderRight: '0px solid #e5e7eb',
+                borderRight: '0px solid #e5e7eb',            
                 cursor: 'pointer' } } }} className='font-sans' model={items} end={end} />
+            <BreadCrumb 
+                pt={{ root: { style: { 
+                    borderRadius: '0px', 
+                    height: '50px',         
+                    borderBottom: '1px solid #e5e7eb', 
+                    borderTop: '0px solid #e5e7eb', 
+                    borderLeft: '0px solid #e5e7eb',
+                    borderRight: '0px solid #e5e7eb',            
+                    cursor: 'pointer' } } }} className='font-sans text-sm'
+            model={commonReducer.breadCrumb} home={home} />
         </>
     );
 };
 
-export default Header;
+export default React.memo(Header);
