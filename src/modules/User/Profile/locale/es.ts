@@ -9,6 +9,7 @@ export default {
     profile_auth: 'Tipo de Autenticación',
     profile_save: 'Guardar Cambios',
     profile_profile: 'Perfil',
+    profile_gender_type: 'Género',  
     
     // Auth types
     auth_google: 'Google',
@@ -24,5 +25,14 @@ export default {
     profile_gender_female: 'Femenino',
     profile_gender_other: 'Otro',
     profile_gender_select: 'Seleccione un Género',
-    
+    profile_required_first_name: 'El nombre es requerido',
+    profile_required_gender_type: 'El género es requerido',
+    profile_area_code: 'Código de Área',
+    profile_area_code_select: 'Seleccione un Código de Área',
+    profile_language_select: 'Seleccione un idioma',
+    profile_language_english: 'Ingles',
+    profile_language_spanish: 'Español',
+    profile_language: 'Lenguaje',
+    profile_save_success: "Los datos fueron guardados satisfactoriamente",
+    profile_save_error: "Ocurrió un error al guardar la información"
 }; 

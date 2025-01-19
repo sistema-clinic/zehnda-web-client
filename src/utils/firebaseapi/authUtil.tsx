@@ -28,10 +28,10 @@ export const doSignInWithGoogle = async () => {
 
     if (authType === "popup") {
         const result = await signInWithPopup(auth, provider);
-        log.log(result)
+        log.log('doSignInWithGoogle: ', result)
     } else if (authType === "redirect") {
         const result = await signInWithRedirect(auth, provider);
-        log.log(result)
+        log.log('doSignInWithGoogle: ', result)
     } 
 
 };

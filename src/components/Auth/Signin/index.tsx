@@ -26,16 +26,6 @@ const Signin: React.FC = () => {
     const toast = useRef<Toast>(null);
     const log = Logger.getInstance();
 
-    useEffect(() => {
-        try {
-            log.log(this)
-        } 
-        catch (exc) {
-            log.error(exc);
-        }
-        
-    }, []);
-
     const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
         toast.current?.show({
             severity: severityType,
@@ -123,8 +113,7 @@ const Signin: React.FC = () => {
                         break;  
                 }
 
-                log.log('Auth Error')
-                log.log(err)
+                log.log('Auth Error: ', err)
                 setIsRegistering(false)
             })
             await doSendEmailVerification();

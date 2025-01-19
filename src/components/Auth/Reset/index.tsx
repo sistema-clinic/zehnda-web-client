@@ -34,7 +34,7 @@ const Reset: React.FC = () => {
                 .then((email) => {
                     setIsChanged(false);
                     setAuthModeMessage(String(messages.reset_success))
-                    log.log(email);
+                    log.log('email: ', email);
                 }).catch((err) => {
                     setIsChanged(true);
                     switch(err.code) {
@@ -107,7 +107,7 @@ const Reset: React.FC = () => {
             setIsResetting(true);
             doVerifyPasswordResetCode(oobCode)
                 .then((email) => {
-                log.log(email);
+                log.log('email: ', email);
                 doConfirmPasswordReset(oobCode, password)
                 .then(() => {
                     show('success', String(messages.reset_success));
@@ -133,8 +133,7 @@ const Reset: React.FC = () => {
                             break;  
                     }
     
-                    log.log('Auth Error')
-                    log.log(err)
+                    log.log('Auth Error : ', err)
                     setIsResetting(false);
                 })
             })
@@ -154,8 +153,7 @@ const Reset: React.FC = () => {
                         break;  
                 }
 
-                log.log('Auth Error')
-                log.log(err)
+                log.log('Auth Error: ', err)
                 setIsResetting(false);
             }) ;
         }

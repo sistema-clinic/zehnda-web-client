@@ -2,7 +2,7 @@ import Login from '@/components/Auth/Login';
 import { useAuth } from '@/contexts/auth/auth';
 import { Navigate } from 'react-router-dom';
 import Logger from '@/utils/log/logging';
-import Loader from '@/components/Loader';
+import Loader from '@/components/Simple/Loader';
 
 import logo from '@assets/logo.png';
 import Reset from '@/components/Auth/Reset';

@@ -1,5 +1,2 @@
-import { getUserInfo } from "../../User/redux/slice";
+export * from "../../User/redux/slice";
 
-export {
-    getUserInfo
-}

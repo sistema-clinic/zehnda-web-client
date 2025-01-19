@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getWelcomeText, getUserLanguage } from '@/global/redux/actions'
+import { getWelcomeText } from '@/global/redux/actions'
 import { AppDispatch } from '@/global/redux/store';
 import { useIntl } from 'react-intl';
 import { doSignOut } from '@/utils/firebaseapi/authUtil';
@@ -24,7 +24,6 @@ const Welcome: React.FC = () => {
     const [pass, setPass] = useState('')
     useEffect(() => {
         dispatch(getWelcomeText({WelcomeText : " Carlos Morante"}))
-        dispatch(getUserLanguage({id : "1"}))
     }, [])
 
     return (

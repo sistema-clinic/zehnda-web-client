@@ -27,8 +27,7 @@ const Login: React.FC = () => {
 
     useEffect(() => {
         try {
-            log.log('user');
-            log.log(user);
+            log.log('user: ', user);
         } 
         catch (exc) {
             log.error(exc);
@@ -97,8 +96,7 @@ const Login: React.FC = () => {
                         break;
                 }
 
-                log.log('Auth Error')
-                log.log(err)
+                log.log('Auth Error : ', err)
                 setIsLoginIn(false)
             })
         }

@@ -9,7 +9,7 @@ import userImage from '@/assets/user.svg'
 import { Menu } from 'primereact/menu';
 import { doSignOut } from '@/utils/firebaseapi/authUtil';
 import { useNavigate } from 'react-router-dom';
-import { changePage } from '@/global/redux/actions'
+import { changePage, resetALL } from '@/global/redux/actions'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/global/redux/store';
 import Logger from '@/utils/log/logging';
@@ -24,7 +24,7 @@ const Header: React.FC = () => {
     const commonReducer = useSelector((state : any) => state.commonReducer);
     
     const menuHandler = (item) => {
-        log.log(item);
+        log.log('item: ', item);
         switch(item.id) {
             case '1':
                 dispatch(changePage({page : 'profile'}))
@@ -37,6 +37,7 @@ const Header: React.FC = () => {
                 break;
             case '4':
                 doSignOut().then(() => {
+                    dispatch(resetALL());
                     navigate('/login');
                 });
                 break;
@@ -44,7 +45,7 @@ const Header: React.FC = () => {
     }
 
     useEffect(() => {
-        log.log(commonReducer);
+        log.log('commonReducer: ', commonReducer);
     }, [commonReducer]);
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import { useAppDispatch } from '@redux/store'
 import { useSelector } from "react-redux";
 import Logger from "@utils/log/logging";
 import { getAuthInfo } from "@/utils/firebaseapi/redux/slice";
+import { getCountries, setUserLanguage } from '@/global/redux/actions'
 
 const AuthContext = React.createContext({});
 
@@ -19,6 +20,7 @@ export const AuthProvider = ({ children }) => {
     const [isGoogleUser, setIsGoogleUser] = useState(false);
     const [loading, setLoading] = useState(true);
     const [internalUserdata, setInternalUserdata] = useState(null);
+    
     const log = Logger.getInstance();
 
     useEffect(() => {
@@ -31,11 +33,17 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         setInternalUserdata(userInternalAuth)
+
+        if(currentUser && userInternalAuth.internalData){
+            dispatch(getCountries({token: currentUser.accessToken, code: userInternalAuth.internalData.language})) 
+            dispatch(setUserLanguage({language : userInternalAuth.internalData.language || 'en'}))
+        }
+        
         log.log("userInternalAuth: ", userInternalAuth)
       }, [userInternalAuth]);
       
     async function initializeUser(user: any) {    
-        log.log(user)
+        log.log('user: ', user)
         if (user) {
             setCurrentUser({ ...user });
             const isEmail: boolean = user.providerData.some(
@@ -48,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
             setUserLoggedIn(true);
 
-            await dispatch(getAuthInfo({uid : user.uid, token: user.accessToken}))
+            await dispatch(getAuthInfo({uid : user.uid, token: user.accessToken, displayName: user.displayName, authType: isEmail ? 'EMAIL' : 'GOOGLE', email: user.email, phoneNumber: user.phoneNumber, photoUrl: user.photoURL}))            
         }
         else{
             setCurrentUser(null);

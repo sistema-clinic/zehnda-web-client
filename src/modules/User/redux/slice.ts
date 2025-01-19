@@ -1,20 +1,23 @@
-import { clientQuery } from "@/utils/database/apolloClient";
+import { resetALL } from "@/global/redux/actions";
+import { clientQuery, clientMutation } from "@/utils/database/apolloClient";
 import Logger from "@/utils/log/logging";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE: any = {
-    user: null
+    user: null, result: {}
 }
 
-export const getUserInfo = createAsyncThunk('user/getUserInfo', 
-    async ({uid, token}: any) => {
+const log = Logger.getInstance();
+
+export const getUserInfo = createAsyncThunk(
+    'user/getUserInfo',
+    async ({uid, token}: any, { getState }) => {
         const url = import.meta.env.VITE_GRAPHQL_SERVER;
         let result : any = { user: null }
-        const log = Logger.getInstance();
         try {
             let response : any = await clientQuery(`
                 query GetUsers($uid: String!) {
-                    getUserInfo(uid: $uid) {
+                    getAllUserInfo(uid: $uid) {
                         id
                         uid
                         email
@@ -24,26 +27,90 @@ export const getUserInfo = createAsyncThunk('user/getUserInfo',
                         photoUrl
                         phoneNumber
                         lastLogin
+                        gender
                         createdAt
                         updatedAt
+                        countryCode
+                        language
                     }                   
                 }               
             `, {uid: uid}, url, { Token: token })
-            result.user = response.getUserInfo
-            log.log(result)
+            result.user = response.getAllUserInfo
+            log.log('getUserInfo result: ', result)
         } catch (error) {
             log.error(error);
         }   
         return result;
-})
+    },
+    {
+        condition: (_, { getState }) => {
+            const state: any = getState();
+            return !state.userReducer?.loading || false;
+        }
+    }
+)
+
+export const setUserInfo = createAsyncThunk(
+    'user/setUserInfo',
+    async ({uid, fName, lName, countryCode, phoneNumber, gender, languageCode, token}: any, { getState }) => {
+        const url = import.meta.env.VITE_GRAPHQL_SERVER;
+        let result : any = { result: {success: false, authError: false }}
+        try {
+            let response : any = await clientMutation(`
+                mutation Mutation(
+                    $uid: String!, 
+                    $fName: String!, 
+                    $languageCode: 
+                    String!, 
+                    $lName: String, 
+                    $countryCode: String, 
+                    $phoneNumber: String, 
+                    $gender: String) {
+
+                    setUser (
+                        uid: $uid, 
+                        fName: $fName, 
+                        languageCode: $languageCode, 
+                        lName: $lName, 
+                        countryCode: $countryCode, 
+                        phoneNumber: $phoneNumber, 
+                        gender: $gender
+                    )
+                }              
+            `, {
+                uid: uid, 
+                fName: fName, 
+                lName: lName, 
+                countryCode: countryCode, 
+                phoneNumber: phoneNumber, 
+                gender: gender, 
+                languageCode: languageCode}, url, { Token: token })
+                result.result.success = response.setUser == null ? false : true 
+            log.log('setUserInfo result: ', result)
+        } catch (error) {
+            if(error?.cause && error?.cause?.message === "user_not_found"){
+                result.result.authError = true
+            }
+            log.error(error);
+        }   
+        return result;
+    }
+)
 
 
 export const UserSlice = createSlice({
     name: 'user',
     initialState: INITIAL_STATE,
     reducers: {
+        resetUser: (state, action) => {
+            return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
+        },
+        resetResult: (state, action) => {
+            return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
+        },
     },
     extraReducers: (builder) => {
+        builder.addCase(resetALL, () =>  INITIAL_STATE )
         builder.addCase(getUserInfo.pending, (state, action) => {
             state.loading = true;
         });
@@ -54,9 +121,20 @@ export const UserSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         });
+        builder.addCase(setUserInfo.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(setUserInfo.fulfilled, (state, action) => {
+            state.result = action.payload.result
+        });
+        builder.addCase(setUserInfo.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
     }       
 })
 
 const { actions, reducer } = UserSlice;
 
+export const { resetUser, resetResult } = actions;
 export default reducer;
