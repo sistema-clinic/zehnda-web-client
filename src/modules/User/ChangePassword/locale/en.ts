@@ -1,8 +1,20 @@
-
 export default {
     // Profile messages
     change_password_title: 'Change Password',
     change_password_original_password: 'Original Password',
     change_password_new_password: 'New Password',
     change_password_confirm_password: 'Confirm Password',
+    change_password_empty_password: 'Please enter a password',
+    change_password_empty_password_confirm: 'Please confirm your password',
+    change_password_not_match: 'Passwords do not match',
+    change_password_weak_password: 'Password should be at least 6 characters',
+    change_password_recent_login: 'This operation is sensitive and requires recent authentication',
+    change_password_error: 'Error changing password',
+    change_password_success: 'Password successfully updated',
+    change_password_prompt_label : "Choose a password", 
+    change_password_weak_label : "Too simple", 
+    change_password_medium_label : "Average complexity", 
+    change_password_strong_label : "Complex password", 
+    change_password_user_not_found : "The user does not exist", 
+    change_password_invalid : "The current password is invalid", 
 }; 

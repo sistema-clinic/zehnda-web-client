@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
 
             setUserLoggedIn(true);
 
-            await dispatch(getAuthInfo({uid : user.uid, token: user.accessToken, displayName: user.displayName, authType: isEmail ? 'EMAIL' : 'GOOGLE', email: user.email, phoneNumber: user.phoneNumber, photoUrl: user.photoURL}))            
+            await dispatch(getAuthInfo({uid : user.uid, token: user.accessToken, displayName: user.displayName ?? '', authType: isEmail ? 'EMAIL' : 'GOOGLE', email: user.email, phoneNumber: user.phoneNumber, photoUrl: user.photoURL}))            
         }
         else{
             setCurrentUser(null);

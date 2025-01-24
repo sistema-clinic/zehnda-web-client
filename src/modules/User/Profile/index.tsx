@@ -64,7 +64,8 @@ const Profile: React.FC = () => {
     const authGender = [
         { label: String(messages.profile_gender_male), value: 'MALE' },
         { label: String(messages.profile_gender_female), value: 'FEMALE' },
-        { label: String(messages.profile_gender_other), value: 'OTHER' }
+        { label: String(messages.profile_gender_other), value: 'OTHER' },
+        { label: String(messages.profile_gender_unknown), value: 'UNKNOWN' }
     ];
 
     const languages = [
@@ -148,7 +149,7 @@ const Profile: React.FC = () => {
     };
 
     const onKeyDown = (id : string) => {  
-        if(id === 'first_name'){
+        if(id === 'txtFName'){
             setIsFNameInvalid(false);
             lblLNameRef.current.style.color = '#6b7280'
         }  
@@ -363,12 +364,17 @@ const Profile: React.FC = () => {
                                     className="w-full md:w-20rem"
                                 />
                             </div>
-                            <Button 
-                                type="submit" 
-                                label={String(messages.profile_save)}
-                                className="w-full md:w-20rem mt-4"
-                                disabled={isFNameInvalid || isEmailInvalid  }
-                            />
+                            <motion.div
+                                whileHover={{ scale: 1.05 }}
+                                onHoverStart={event => {}}
+                                onHoverEnd={event => {}}>
+                                <Button 
+                                    type="submit" 
+                                    label={String(messages.profile_save)}
+                                    className="w-full md:w-20rem mt-4"
+                                    disabled={isFNameInvalid || isEmailInvalid  }
+                                />
+                            </motion.div>
                         </form>
                     </div>
                 </div>     

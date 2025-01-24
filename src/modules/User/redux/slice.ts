@@ -1,6 +1,7 @@
 import { resetALL } from "@/global/redux/actions";
 import { clientQuery, clientMutation } from "@/utils/database/apolloClient";
 import Logger from "@/utils/log/logging";
+import Session from "@/utils/session/session";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_STATE: any = {
@@ -38,6 +39,10 @@ export const getUserInfo = createAsyncThunk(
             result.user = response.getAllUserInfo
             log.log('getUserInfo result: ', result)
         } catch (error) {
+            if(error?.cause && error?.cause?.message === "user_not_found"){
+                result.result.authError = true
+                Session.getInstance().renewSession()
+            }
             log.error(error);
         }   
         return result;
@@ -90,6 +95,7 @@ export const setUserInfo = createAsyncThunk(
         } catch (error) {
             if(error?.cause && error?.cause?.message === "user_not_found"){
                 result.result.authError = true
+                Session.getInstance().renewSession()
             }
             log.error(error);
         }   

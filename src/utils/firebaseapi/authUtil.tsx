@@ -10,7 +10,9 @@ import {
   GoogleAuthProvider,
   signInWithRedirect,
   verifyPasswordResetCode,
-  confirmPasswordReset 
+  confirmPasswordReset, 
+  applyActionCode
+
 } from "firebase/auth";
 
 export const doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
@@ -61,3 +63,19 @@ export const doVerifyPasswordResetCode = (code: string) => {
 export const doConfirmPasswordReset = (code: string, password: string) => {
   return confirmPasswordReset(auth, code, password);
 };
+
+export const doUpdateCurrentUser = (user: any) => { 
+  return auth.updateCurrentUser(user)
+}
+
+export const renewToken = () => {
+  const log = Logger.getInstance();
+  auth.currentUser.getIdToken(true).then((token) => {
+      log.log('token: ', token);
+  }) 
+}
+
+export const doApplyActionCode = (code: string) => {
+  return applyActionCode(auth, code);
+}
+

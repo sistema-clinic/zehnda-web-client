@@ -15,4 +15,7 @@ locales = { ...locales, ...forgot };
 import reset from '../../Auth/Reset/locale/en'
 locales = { ...locales, ...reset };
 
+import verify from '../../Auth/VerifyEmail/locale/en'
+locales = { ...locales, ...verify };
+
 export default locales;

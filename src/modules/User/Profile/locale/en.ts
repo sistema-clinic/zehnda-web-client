@@ -24,6 +24,7 @@ export default {
     profile_gender_male: 'Male',
     profile_gender_female: 'Female',
     profile_gender_other: 'Other',
+    profile_gender_unknown: 'Unknown',
     profile_gender_select: 'Select a Gender',
     profile_required_first_name: 'First name is required',
     profile_required_gender_type: 'Gender type is required',

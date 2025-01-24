@@ -9,12 +9,7 @@ import { doConfirmPasswordReset, doVerifyPasswordResetCode } from '@firebaseapi/
 import { motion } from "motion/react";
 import { Link, useSearchParams } from 'react-router-dom';
 
-const Reset: React.FC = () => {
-    const [searchParams] = useSearchParams();
-    const [mode, setMode] = useState<string | null>(searchParams.get('mode'));
-    const [oobCode, setOobCode] = useState<string | null>(searchParams.get('oobCode'));
-    const [apiKey, setApiKey] = useState<string | null>(searchParams.get('apiKey'));
-    const [lang, setLang] = useState<string | null>(searchParams.get('lang'));
+const Reset: React.FC<{ code : string }> = ({code}) => {
     const [isChanged, setIsChanged] = useState(false);
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -30,7 +25,7 @@ const Reset: React.FC = () => {
 
     useEffect(() => {
         try {
-            doVerifyPasswordResetCode(oobCode)
+            doVerifyPasswordResetCode(code)
                 .then((email) => {
                     setIsChanged(false);
                     setAuthModeMessage(String(messages.reset_success))
@@ -105,10 +100,10 @@ const Reset: React.FC = () => {
         }
         if (!isResetting) {
             setIsResetting(true);
-            doVerifyPasswordResetCode(oobCode)
+            doVerifyPasswordResetCode(code)
                 .then((email) => {
                 log.log('email: ', email);
-                doConfirmPasswordReset(oobCode, password)
+                doConfirmPasswordReset(code, password)
                 .then(() => {
                     show('success', String(messages.reset_success));
                     setIsResetting(false);
