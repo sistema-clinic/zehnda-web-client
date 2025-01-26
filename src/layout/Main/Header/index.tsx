@@ -17,6 +17,7 @@ import Logger from '@/utils/log/logging';
 const Header: React.FC = () => {
     const op = useRef<OverlayPanel>(null);
     const user : any = useAuth();
+    const userInfo = useSelector((state: any) => state.userReducer.user);
     const [avatarUrl, setAvatarUrl] = useState<string>(userImage);
     const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
@@ -41,6 +42,9 @@ const Header: React.FC = () => {
                     navigate('/login');
                 });
                 break;
+            case '5':
+                dispatch(changePage({page : 'changePicture'}))
+                break;
         }
     }
 
@@ -49,27 +53,18 @@ const Header: React.FC = () => {
     }, [commonReducer]);
 
     useEffect(() => {
-        const preloadImage = async (url: string) => {
-            return new Promise((resolve, reject) => {
-                const img = new Image();
-                img.src = url;
-                img.onload = () => {
-                    setAvatarUrl(url);
-                    resolve(url);
-                };
-                img.onerror = (e) => {
-                    setAvatarUrl(userImage);
-                    reject();
-                };
-            });
-        };
-
-        if (user.currentUser?.photoURL) {
-            preloadImage(user.currentUser.photoURL).catch(() => {
-
-            });
+        if(userInfo && userInfo.photoUrl && userInfo.photoUrl !== '') {
+            setAvatarUrl(userInfo.photoUrl);
         }
-    }, [user.currentUser?.photoURL]);
+        else if (user.currentUser?.photoURL && user.currentUser?.photoURL !== '') {
+            log.log(user)
+            setAvatarUrl(user.currentUser?.photoURL);
+        }
+        else{
+            setAvatarUrl(userImage);
+        }
+
+    }, [userInfo]);
 
     const itemRenderer = (item) => (
         <a className="flex align-items-center p-menuitem-link p-3" onClick={() => {menuHandler(item)}}> 
@@ -77,14 +72,6 @@ const Header: React.FC = () => {
             <span className="mx-2">{item.label}</span>
             {item.badge && <Badge className="ml-auto" value={item.badge} />}
             {item.shortcut && <span className="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{item.shortcut}</span>}
-        </a>
-    );
-
-    
-    const itemUserRenderer = (item) => (
-        <a className="flex align-items-center p-menuitem-link p-2" onClick={() => {console.log(item)}}> 
-            <span className={item.icon} />
-            <span className="mx-2">{item.label}</span>
         </a>
     );
 
@@ -158,7 +145,8 @@ const Header: React.FC = () => {
         { label: 'Settings',
             items:[
                 { label: 'Profile', id : '2', icon: 'pi pi-user-edit', template: itemRenderer },
-                { label: 'Change Password', id : '3', icon: 'pi pi-key', template: itemRenderer }
+                { label: 'Change Password', id : '3', icon: 'pi pi-key', template: itemRenderer },
+                { label: 'Change Picture', id : '5', icon: 'pi pi-pencil', template: itemRenderer }
             ]
         },
         { label: 'Logout',
@@ -172,8 +160,19 @@ const Header: React.FC = () => {
 
     const end = (
         <div className="flex align-items-center gap-2">
-            <Avatar 
-                style={{ cursor: 'pointer' }} 
+            <Avatar          
+                style={{ cursor: 'pointer',
+                    border: '4px solid #b1a3ff', // Color del aro
+                 }} 
+                 pt = {{ 
+                    root: { style: {
+                        width: '40px',
+                        height: '40px',
+                    } },
+                    image: { style: {
+                        cursor: 'pointer'
+                    } }
+                }}
                 image={avatarUrl} 
                 onClick={(e) => op.current.toggle(e)} 
                 shape="circle" 

@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 import { FloatLabel } from "primereact/floatlabel";
 import { Toast } from 'primereact/toast';
 import { Password } from "primereact/password";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useIntl } from "react-intl";
 import './index.scss'
 import { Button } from "primereact/button";
@@ -10,6 +10,9 @@ import { doPasswordChange, doSignInWithEmailAndPassword } from "@/utils/firebase
 import { useAuth } from "@/contexts/auth/auth";
 import Logger from "@/utils/log/logging";
 import TransparentLoader from "@/components/Simple/TransparentLoader";
+import { setBreadCrumb } from "@/global/redux/actions";
+import { AppDispatch } from "@/global/redux/store";
+import { useDispatch } from "react-redux";
 
 interface PasswordFormData {
     original_password: string;
@@ -18,6 +21,7 @@ interface PasswordFormData {
 }
 
 const ChangePassword: React.FC = () => {
+    const dispatch: AppDispatch = useDispatch();
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
     const [isNewPasswordInvalid, setNewIsPasswordInvalid] = useState(false);
     const [isConfirmPasswordInvalid, setConfirmIsPasswordInvalid] = useState(false);
@@ -44,7 +48,9 @@ const ChangePassword: React.FC = () => {
         new_password: '',
         confirm_password: ''
     });
-    
+
+    const breadItems = [{ label: String(messages.change_password_title) }];
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -53,6 +59,16 @@ const ChangePassword: React.FC = () => {
         }));
     };
 
+    useEffect(() => {
+        try {
+            dispatch(setBreadCrumb({breadCrumb : breadItems}))           
+        } 
+        catch (exc) {
+            log.error(exc);
+        }
+
+    }, []);
+    
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if(formData.original_password === '') {    
@@ -118,10 +134,7 @@ const ChangePassword: React.FC = () => {
                         new_password: '',
                         confirm_password: ''
                     })
-                    new Promise(resolve => setTimeout(resolve, 5000)).then(() => {
-                        setIsLoading(false);
-                    });
-                    //setIsLoading(false)
+                    setIsLoading(false)
                 })
                 .catch((error) => {   
                     switch(error.code) {
@@ -188,10 +201,11 @@ const ChangePassword: React.FC = () => {
     };
     return (
         <>
-        <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-            >
+            <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="relative"    
+                >
                 {isLoading && (
                     <div className="overlay">
                         <TransparentLoader />

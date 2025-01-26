@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloLink, InMemoryCache, HttpLink, defaultDataIdFromObject } from '@apollo/client';
+import { ApolloClient, ApolloLink, InMemoryCache, HttpLink } from '@apollo/client';
 import gql from 'graphql-tag'
 import { onError } from "@apollo/client/link/error";
 
@@ -50,7 +50,6 @@ export const clientMutation = async (query: string | readonly string[], variable
 		// Use the setContext method to set the HTTP headers.
 		operation.setContext({
 			headers: {
-				"x-api-key": import.meta.env.VITE_GOOGLE_APIKEY,
                 ...headers
 			}
 		});

@@ -9,4 +9,7 @@ locales = { ...locales, ...changePassword };
 import AuthApply from '../../Auth/Apply/locale/es'
 locales = { ...locales, ...AuthApply };
 
+import ChangePic from '../../User/ChangePicture/locale/es'
+locales = { ...locales, ...ChangePic };
+
 export default locales;

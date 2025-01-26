@@ -1,9 +1,9 @@
 import { motion } from 'motion/react';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import check from '@assets/vectors/check.svg'
 import error from '@assets/vectors/error.svg'
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { doApplyActionCode } from '@firebaseapi/authUtil'
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';

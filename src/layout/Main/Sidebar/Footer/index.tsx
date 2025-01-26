@@ -2,7 +2,7 @@ import { SidebarFooterProps } from '@/global/interfaces';
 import styled from '@emotion/styled';
 import Toggler from '@layout/Main/Sidebar/Icons/Toggler';
 
-const StyledSidebarFooter = styled.div`
+/* const StyledSidebarFooter = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -12,8 +12,7 @@ const StyledSidebarFooter = styled.div`
   border-radius: 8px;
   color: white;
   background: linear-gradient(45deg, rgb(21 87 205) 0%, rgb(90 225 255) 100%);
-  /* background: #0098e5; */
-`;
+`; */
 
 const StyledCollapsedSidebarFooter = styled.span`
   width: 40px;

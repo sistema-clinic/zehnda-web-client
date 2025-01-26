@@ -7,7 +7,7 @@ import { Toast } from 'primereact/toast';
 import Logger from '@/utils/log/logging';
 import { doConfirmPasswordReset, doVerifyPasswordResetCode } from '@firebaseapi/authUtil';
 import { motion } from "motion/react";
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Reset: React.FC<{ code : string }> = ({code}) => {
     const [isChanged, setIsChanged] = useState(false);

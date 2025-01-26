@@ -46,14 +46,44 @@ export const getUserInfo = createAsyncThunk(
             log.error(error);
         }   
         return result;
-    },
+    }
+    /*,
     {
-        condition: (_, { getState }) => {
+         condition: (_, { getState }) => {
             const state: any = getState();
             return !state.userReducer?.loading || false;
         }
+    }*/
+)
+
+export const getUserPicture = createAsyncThunk(
+    'user/getUserPicture',
+    async ({uid, token}: any, { getState }) => {
+        const url = import.meta.env.VITE_GRAPHQL_SERVER;
+        let result : any = { user: null }
+        try {
+            let response : any = await clientQuery(`
+                query GetUsers($uid: String!) {
+                    getAllUserInfo(uid: $uid) {
+                        id
+                        uid                  
+                        photoUrl                     
+                    }                   
+                }               
+            `, {uid: uid}, url, { Token: token })
+            result.user = response.getAllUserInfo
+            log.log('getUserInfo result: ', result)
+        } catch (error) {
+            if(error?.cause && error?.cause?.message === "user_not_found"){
+                result.result.authError = true
+                Session.getInstance().renewSession()
+            }
+            log.error(error);
+        }   
+        return result;
     }
 )
+
 
 export const setUserInfo = createAsyncThunk(
     'user/setUserInfo',
@@ -103,6 +133,46 @@ export const setUserInfo = createAsyncThunk(
     }
 )
 
+export const setPicture = createAsyncThunk(
+    'user/setPicture',
+    async ({uid, pictureUrl, mime, token}: any, { getState }) => {
+        const url = import.meta.env.VITE_GRAPHQL_SERVER;
+        let result : any = { result: {success: false, authError: false },  user : { photoUrl: null }}
+        try {
+            let response : any = await clientMutation(`
+                mutation Mutation(
+                    $uid: String!, 
+                    $url: String!, 
+                    $mime: String!) { 
+                    setPicture (
+                        uid: $uid, 
+                        url: $url, 
+                        mime: $mime 
+                    )
+                        {
+                            photoUrl
+                        }
+                }              
+            `, {
+                uid: uid, 
+                url: pictureUrl, 
+                mime: mime }, url, { Token: token })
+                result.result.success = response.setPicture == null ? false : true 
+                if(result.result.success){
+                    result.user.photoUrl = response.setPicture.photoUrl
+                }
+            log.log('setPicture result: ', result)            
+        } 
+        catch (error) {
+            if(error?.cause && error?.cause?.message === "user_not_found"){
+                result.result.authError = true
+                Session.getInstance().renewSession()
+            }
+            log.error(error);
+        }
+        return result;
+    }
+)
 
 export const UserSlice = createSlice({
     name: 'user',
@@ -112,6 +182,9 @@ export const UserSlice = createSlice({
             return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
         },
         resetResult: (state, action) => {
+            return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
+        },
+        refreshPicture: (state, action) => {
             return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
         },
     },
@@ -137,10 +210,20 @@ export const UserSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         });
+        builder.addCase(setPicture.pending, (state, action) => {
+            state.loading = true;
+        });
+        builder.addCase(setPicture.fulfilled, (state, action) => {
+            state.result = action.payload.result
+        });
+        builder.addCase(setPicture.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
     }       
 })
 
 const { actions, reducer } = UserSlice;
 
-export const { resetUser, resetResult } = actions;
+export const { resetUser, resetResult, refreshPicture } = actions;
 export default reducer;

@@ -9,8 +9,6 @@ import LoginPage from '@modules/Auth/Login';
 import SigninPage from '@modules/Auth/Signin';
 import { AuthProvider } from '@providers/auth/auth'
 import ForgotPage from '@/modules/Auth/Forgot';
-import ResetPage from '@/modules/Auth/Reset';
-import VerifyEmailPage from './modules/Auth/VerifyEmail';
 import ApplyCodePage from './modules/Auth/Apply';
 
 function App() {
@@ -27,8 +25,7 @@ function App() {
                 <Route path='/login' element={<LoginPage />} />
                 <Route path='/signin' element={<SigninPage />} />
                 <Route path='/forgot' element={<ForgotPage />} />
-                <Route path='/apply' element={<ApplyCodePage />} />
-                
+                <Route path='/apply' element={<ApplyCodePage />} />            
             </Routes>        
           </PrimeReactProvider>
         </AuthProvider>

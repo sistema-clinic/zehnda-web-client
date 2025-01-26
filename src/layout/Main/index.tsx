@@ -1,18 +1,18 @@
-import { Suspense, useEffect } from 'react'
-import React from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/auth/auth';
-import Logger from '@/utils/log/logging';
-import SidebarMenu from '@layout/Main/Sidebar/index';
-import Header from '@layout/Main/Header/index';
-import Content from '@layout/Main/Content/index';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/global/redux/store';
-import { changePage, getCountries, setUserLanguage } from '@/global/redux/actions'
-const Profile = React.lazy(() => import('@/modules/User/Profile'));
-import ChangePassword from '@/modules/User/ChangePassword';
 import Loader from '@/components/Simple/Loader';
+import { useAuth } from '@/contexts/auth/auth';
+import { changePage } from '@/global/redux/actions';
+import { AppDispatch } from '@/global/redux/store';
 import { auth } from '@/utils/firebaseapi/firebaseConfig';
+import Logger from '@/utils/log/logging';
+import Content from '@layout/Main/Content/index';
+import Header from '@layout/Main/Header/index';
+import SidebarMenu from '@layout/Main/Sidebar/index';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+const Profile = React.lazy(() => import('@/modules/User/Profile'));
+const ChangePassword = React.lazy(() => import('@/modules/User/ChangePassword'));
+const ChangePicture = React.lazy(() => import('@/modules/User/ChangePicture'));
 
 const MainPage: React.FC = () => {
     const user : any = useAuth()
@@ -28,7 +28,7 @@ const MainPage: React.FC = () => {
                 auth.signOut()
             }
             else {
-                dispatch(changePage({page : 'changePassword'}))               
+                dispatch(changePage({page : 'changePicture'}))               
             }
         } 
         catch (exc) {
@@ -49,7 +49,8 @@ const MainPage: React.FC = () => {
                         
                         <Content>
                             {commonReducer.page === 'profile' && <Suspense fallback={<Loader/>}><Profile /></Suspense>} 
-                            {commonReducer.page === 'changePassword' && <ChangePassword />} 
+                            {commonReducer.page === 'changePassword' && <Suspense fallback={<Loader/>}><ChangePassword /></Suspense>} 
+                            {commonReducer.page === 'changePicture' && <Suspense fallback={<Loader/>}><ChangePicture /></Suspense>} 
                             {!commonReducer.page && <span>Selecciona una opción del menú</span>}
                         </Content>
                     </div>

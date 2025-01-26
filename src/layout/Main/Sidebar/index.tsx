@@ -20,10 +20,10 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 const SidebarMenu: React.FC = () => {
-    const [theme, setTheme] = useState<Theme>('light');
-    const [hasImage, setHasImage] = useState(false);
+    const [theme] = useState<Theme>('light');
+    const [hasImage] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
-    const [rtl, setRtl] = useState(false);
+    const [rtl] = useState(false);
     const [hideSidebar, setHideSidebar] = useState(false);
 
     const toggleSidebar = () => {

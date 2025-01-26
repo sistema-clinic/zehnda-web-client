@@ -1,5 +1,4 @@
 import { useAuth } from '@/contexts/auth/auth';
-import Logger from '@/utils/log/logging';
 import Loader from '@/components/Simple/Loader';
 
 import logo from '@assets/logo.png';
@@ -7,7 +6,6 @@ import Forgot from '@/components/Auth/Forgot';
 
 const ForgotPage: React.FC = () => {
     const user : any = useAuth()
-    const log = Logger.getInstance();
 
     return (
         <>
