@@ -19,6 +19,11 @@ export default defineConfig({
       { find: '@providers', replacement: path.resolve(__dirname, 'src/contexts') },
       { find: '@assets', replacement: path.resolve(__dirname, 'src/assets') },
       { find: '@layout', replacement: path.resolve(__dirname, 'src/layout') },
+      { find: '@hooks', replacement: path.resolve(__dirname, 'src/hooks') },
     ]
+  },
+  server: {
+    allowedHosts : ['839c-181-32-94-163.ngrok-free.app']
   }
+
 })

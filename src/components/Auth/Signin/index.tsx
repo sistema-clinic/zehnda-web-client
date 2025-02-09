@@ -11,6 +11,7 @@ import { Toast } from 'primereact/toast';
 import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from '@firebaseapi/authUtil'
 
 import './index.scss';
+import { useToast } from '@/hooks/Toast';
 
 const Signin: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -23,17 +24,8 @@ const Signin: React.FC = () => {
     const lblPasswordRef = useRef(null);
     const lblConfPasswordRef = useRef(null);
     const {messages} = useIntl();
-    const toast = useRef<Toast>(null);
+    const { toast, show } = useToast();
     const log = Logger.getInstance();
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 3000
-        });
-    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

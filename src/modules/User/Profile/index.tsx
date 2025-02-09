@@ -14,6 +14,7 @@ import { useAuth } from '@/contexts/auth/auth';
 import { InputMask } from 'primereact/inputmask';
 import CountryFlags from '@/components/Simple/CountryFlags';
 import TransparentLoader from '@/components/Simple/TransparentLoader';
+import { useToast } from "@hooks/Toast";
 import './index.scss'
 
 interface ProfileFormData {
@@ -34,20 +35,11 @@ const Profile: React.FC = () => {
     const countries = useSelector((state: any) => state.commonReducer.countries);
     const lblLNameRef = useRef(null);
     const user : any = useAuth()
-    const toast = useRef<Toast>(null);
     const [isFNameInvalid, setIsFNameInvalid] = useState(false);
     const [isEmailInvalid, setIsEmailInvalid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const {messages} = useIntl();
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 5000
-        });
-    };  
+    const { toast, show } = useToast();
 
     const [formData, setFormData] = useState<ProfileFormData>({
         first_name: '',
@@ -74,7 +66,7 @@ const Profile: React.FC = () => {
 
     ];
 
-    const breadItems = [{ label: String(messages.profile_profile) }];
+    let breadItems = [{ label: String(messages.profile_profile) }];
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -133,7 +125,7 @@ const Profile: React.FC = () => {
         setIsLoading(false)
         dispatch(setUserLanguage({language : formData.language_code || 'en'}))
         dispatch(getCountries({token: user.currentUser.accessToken, code: formData.language_code})) 
-
+        dispatch(setBreadCrumb({breadCrumb : breadItems}))
         if(result){
             if(result.payload.result.success === true){
                 show('success', String(messages.profile_save_success));

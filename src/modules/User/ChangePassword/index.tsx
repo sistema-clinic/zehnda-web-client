@@ -13,6 +13,7 @@ import TransparentLoader from "@/components/Simple/TransparentLoader";
 import { setBreadCrumb } from "@/global/redux/actions";
 import { AppDispatch } from "@/global/redux/store";
 import { useDispatch } from "react-redux";
+import { useToast } from "@/hooks/Toast";
 
 interface PasswordFormData {
     original_password: string;
@@ -27,21 +28,12 @@ const ChangePassword: React.FC = () => {
     const [isConfirmPasswordInvalid, setConfirmIsPasswordInvalid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const {messages} = useIntl();
-    const toast = useRef<Toast>(null);
+    const { toast, show } = useToast();
     const lblPasswordRef = useRef(null);
     const lblNewPasswordRef = useRef(null);
     const lblConfirmPasswordRef = useRef(null);
     const user : any = useAuth()
     const log = Logger.getInstance();
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 3000
-        });
-    };
 
     const [formData, setFormData] = useState<PasswordFormData>({
         original_password: '',

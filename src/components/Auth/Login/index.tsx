@@ -10,6 +10,7 @@ import { Toast } from 'primereact/toast';
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from '@firebaseapi/authUtil'
 import { useAuth } from '@/contexts/auth/auth';
 import Logger from '@/utils/log/logging';
+import { useToast } from "@/hooks/Toast";
 
 import './index.scss';
 
@@ -22,7 +23,7 @@ const Login: React.FC = () => {
     const [isPasswordInvalid, setPasswordIsInvalid] = useState(false);
     const lblPasswordRef = useRef(null);
     const {messages} = useIntl();
-    const toast = useRef<Toast>(null);
+    const { toast, show } = useToast();
     const log = Logger.getInstance();
 
     useEffect(() => {
@@ -34,15 +35,6 @@ const Login: React.FC = () => {
         }
         
     }, []);
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 3000
-        });
-    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()  

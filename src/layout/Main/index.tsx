@@ -13,6 +13,8 @@ import { Navigate } from 'react-router-dom';
 const Profile = React.lazy(() => import('@/modules/User/Profile'));
 const ChangePassword = React.lazy(() => import('@/modules/User/ChangePassword'));
 const ChangePicture = React.lazy(() => import('@/modules/User/ChangePicture'));
+const Contacts = React.lazy(() => import('@/modules/Contacts'));
+const Dashboard = React.lazy(() => import('@/modules/Dashboard'));
 
 const MainPage: React.FC = () => {
     const user : any = useAuth()
@@ -28,7 +30,7 @@ const MainPage: React.FC = () => {
                 auth.signOut()
             }
             else {
-                dispatch(changePage({page : 'changePicture'}))               
+                dispatch(changePage({page : 'dashboard'}))               
             }
         } 
         catch (exc) {
@@ -51,6 +53,8 @@ const MainPage: React.FC = () => {
                             {commonReducer.page === 'profile' && <Suspense fallback={<Loader/>}><Profile /></Suspense>} 
                             {commonReducer.page === 'changePassword' && <Suspense fallback={<Loader/>}><ChangePassword /></Suspense>} 
                             {commonReducer.page === 'changePicture' && <Suspense fallback={<Loader/>}><ChangePicture /></Suspense>} 
+                            {commonReducer.page === 'contacts' && <Suspense fallback={<Loader/>}><Contacts /></Suspense>} 
+                            {commonReducer.page === 'dashboard' && <Suspense fallback={<Loader/>}><Dashboard /></Suspense>} 
                             {!commonReducer.page && <span>Selecciona una opción del menú</span>}
                         </Content>
                     </div>

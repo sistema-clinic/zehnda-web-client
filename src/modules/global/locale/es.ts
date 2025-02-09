@@ -12,4 +12,7 @@ locales = { ...locales, ...AuthApply };
 import ChangePic from '../../User/ChangePicture/locale/es'
 locales = { ...locales, ...ChangePic };
 
+import Dashboard from '../../Dashboard/locale/es'
+locales = { ...locales, ...Dashboard };
+
 export default locales;

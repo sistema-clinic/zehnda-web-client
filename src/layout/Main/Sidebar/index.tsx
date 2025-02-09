@@ -1,13 +1,20 @@
 import { Sidebar, Menu, MenuItem, SubMenu, MenuItemStyles, menuClasses } from 'react-pro-sidebar';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Graph from '@layout/Main/Sidebar/Icons/Graph';
 import Doc from '@layout/Main/Sidebar/Icons/Doc';
 import Calendar from '@layout/Main/Sidebar/Icons/Calendar';
-import SidebarBadge from '@layout/Main/Sidebar/Badge';
 import SidebarHeader from '@layout/Main/Sidebar/Header';
 import React from 'react';
 import SidebarFooter from '@layout/Main/Sidebar/Footer';
 import './index.scss';
+import { useAuth } from '@/contexts/auth/auth';
+import Logger from '@/utils/log/logging';
+import { useIntl } from 'react-intl';
+import { buildMenuTree } from '@/utils/utilities/utilities';
+import { useSelector } from 'react-redux';
+import Maintenance from './Icons/Maintenance';
+import Tool from './Icons/Tool';
+import Tech from './Icons/Tech';
 
 type Theme = 'light' | 'dark';
 
@@ -20,12 +27,16 @@ const hexToRgba = (hex: string, alpha: number) => {
 };
 
 const SidebarMenu: React.FC = () => {
-    const [theme] = useState<Theme>('light');
+    const log = Logger.getInstance();
+    const [theme] = useState<Theme>('dark');
     const [hasImage] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [rtl] = useState(false);
     const [hideSidebar, setHideSidebar] = useState(false);
-
+    const user : any = useAuth();
+    const {messages} = useIntl();
+    const commonReducer = useSelector((state : any) => state.commonReducer);
+    
     const toggleSidebar = () => {
         setCollapsed(!collapsed);
     }
@@ -118,6 +129,46 @@ const SidebarMenu: React.FC = () => {
             fontWeight: open ? 600 : undefined,
         }),
     };
+
+    const sidebarMemoMenu = useMemo(() => {
+        let menus: any[] = []
+        if(user?.internalUserdata?.internalData?.role){
+            let menuData: any = user?.internalUserdata?.internalData?.role.menu.filter((e) => e.type === 'SIDEBAR')
+            log.log(JSON.stringify(menuData))
+            const templates : Map<string, any> = new Map<string, any>()
+
+            const badges : Map<number, any> = new Map<number, any>()
+            menus = buildMenuTree(menuData, messages, templates, badges)
+        }
+
+        return menus
+    }, [user.internalUserdata.internalData.role.menu, commonReducer.language])
+
+    const getIcon = (icon) =>{
+        try {
+            if (icon === 'Doc'){
+                return <Doc size={18} />
+            }
+            if (icon === 'Tool'){
+                return <Tool size={18} />
+            }
+            if (icon === 'Maintenance'){
+                return <Maintenance size={18} />
+            }
+            if (icon === 'Tech'){
+                return <Tech size={18} />
+            }
+            if (icon === 'Calendar'){
+                return <Calendar size={18} />
+            }
+            if (icon === 'Graph'){
+                return <Graph size={18} />
+            }
+        } catch (error) {
+            
+        }     
+    }
+
     return (
         <>
             <Sidebar 
@@ -129,19 +180,25 @@ const SidebarMenu: React.FC = () => {
                     transition: 'all 0.3s ease-in-out'
                 }}>
                     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                        
-
                         <SidebarHeader rtl={rtl} collapsed={collapsed} style={{ marginBottom: '0px', marginTop: '0px' }} />
                         <div className="border-b" style={{ borderColor: themes[theme].sidebar.borderColor }}></div>
                         <Menu className='h-full' menuItemStyles={menuItemStyles}>
-                            <SubMenu icon={<Graph size={18} />} label="Charts">
-                            <MenuItem suffix={<SidebarBadge variant="info" shape="circle"> 1 </SidebarBadge>}> Pie charts </MenuItem>
-                            <MenuItem> Line charts </MenuItem>
-                        </SubMenu>
-                        <MenuItem icon={<Doc size={18} />}> Documentation </MenuItem>
-                        <MenuItem icon={<Calendar size={18} />}> Calendar </MenuItem>
-                        </Menu>
-                        <SidebarFooter collapsed={collapsed} onClick={toggleSidebar} />
+                        {sidebarMemoMenu.map((e) => 
+                            !e.items ? (
+                                <MenuItem key={e.id} icon={getIcon(e.icon)} > {e.label} </MenuItem>
+                            )
+                            :
+                            (
+                                <SubMenu key={e.id} icon={getIcon(e.icon)} label={e.label} >
+                                    {
+                                        e.items.map((s) =>  <MenuItem key = {s.id}> {s.label} </MenuItem>)
+                                    }
+                                </SubMenu>
+                            )
+                        )}
+                        </Menu>      
+                        <SidebarFooter collapsed={collapsed} onClick={toggleSidebar} /> 
+                        
                     </div>
                     
             </Sidebar>

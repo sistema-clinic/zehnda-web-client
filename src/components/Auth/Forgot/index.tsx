@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { useIntl } from 'react-intl';
@@ -8,23 +8,15 @@ import Logger from '@/utils/log/logging';
 import { doPasswordReset } from '@firebaseapi/authUtil';
 import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/Toast';
 
 const Forgot: React.FC = () => {
     const [email, setEmail] = useState('');
     const [isEmailInvalid, setEmailIsInvalid] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
-    const toast = useRef<Toast>(null);
+    const { toast, show } = useToast();
     const {messages} = useIntl();
     const log = Logger.getInstance();
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 3000
-        });
-    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

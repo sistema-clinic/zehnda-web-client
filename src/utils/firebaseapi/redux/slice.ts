@@ -7,9 +7,17 @@ const INITIAL_STATE: any = {
     internalData : {
         id : -1,
         uid : '',
+        firstName : '',
+        lastName : '',
         email : '',
         language : '',
         authType : '',
+        role : {
+            id: -1,
+            name: "",
+            menu: [],
+            permissions: []
+        },
     }
 }
 
@@ -18,13 +26,22 @@ const log = Logger.getInstance();
 export const getAuthInfo = createAsyncThunk('utils/auth/getAuthInfo',
     async ({uid, token, displayName, email, phoneNumber, photoUrl, authType }: any) => {
         const url = import.meta.env.VITE_GRAPHQL_SERVER;
-        let result : any = INITIAL_STATE.internalData
+        let result : any = {
+            id : -1,
+            uid : '',
+            email : '',
+            language : '',
+            authType : '',
+            role : {}            
+        }
         const language = navigator.language.split("-")[0]
         try {
-            let response : any = await clientQuery(`
+            let user : any = await clientQuery(`
                 query GetUsers($uid: String!, $displayName: String!, $email: String!, $phoneNumber: String, $photoUrl: String, $authType: String!, $language: String!) {
                     getUserInfo(uid: $uid, displayName: $displayName, email: $email, phoneNumber: $phoneNumber, photoUrl: $photoUrl, authType: $authType, language: $language) {
                         id
+                        firstName
+                        lastName
                         uid
                         email
                         authType
@@ -33,7 +50,48 @@ export const getAuthInfo = createAsyncThunk('utils/auth/getAuthInfo',
                     }                   
                 }               
             `, {uid: uid, displayName: displayName, email: email, phoneNumber: phoneNumber, photoUrl: photoUrl, authType: authType, language: language}, url, { token: token })
-            result = response.getUserInfo
+
+            result.id = user.getUserInfo.id
+            result.uid = user.getUserInfo.uid
+            result.email = user.getUserInfo.email
+            result.language = user.getUserInfo.language
+            result.authType = user.getUserInfo.authType
+            result.firstName = user.getUserInfo.firstName
+            result.lastName = user.getUserInfo.lastName
+
+            let role : any = await clientQuery(`
+                query GetRoleData($uid: String!) {
+                    getRoleData(uid: $uid) {
+                        uid
+                        role {
+                        id
+                        name
+                        menu {
+                            id
+                            name
+                            visible
+                            type
+                            lang_code
+                            icon
+                            template
+                            parent
+                            page
+                            position
+                        }
+                        permissions {
+                            permission {
+                                key
+                            }
+                            section {
+                                code
+                            }
+                        }
+                        }
+                    }
+                }               
+            `, {uid: uid}, url, { token: token })
+
+            result.role = role.getRoleData.role
             log.log('result: ', result)
         } catch (error) {
             log.error(error);

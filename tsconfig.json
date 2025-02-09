@@ -14,6 +14,7 @@
       "@providers/*": ["./src/contexts/*"],
       "@assets/*": ["./src/assets/*"],
       "@layout/*": ["./src/layout/*"],
+      "@hooks/*": ["./src/hooks/*"],
     },
     "types": [
       "node"

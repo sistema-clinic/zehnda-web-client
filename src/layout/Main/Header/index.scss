@@ -1,0 +1,43 @@
+@mixin focused() {
+    outline: 0 none;
+    outline-offset: 0;
+    transition: box-shadow .2s;
+    box-shadow: var(--focus-ring);
+}
+
+@mixin focused-inset() {
+    outline: 0 none;
+    outline-offset: 0;
+    transition: box-shadow .2s;
+    box-shadow: inset var(--focus-ring);
+}
+
+.layout-topbar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: var(--text-color-secondary);
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    transition: background-color .2s;
+
+    &:hover {
+        color: var(--text-color);
+        background-color: var(--surface-hover);
+    }
+
+    &:focus {
+        @include focused();
+    }
+
+    i {
+        font-size: 1.5rem;
+    }
+
+    span {
+        font-size: 1rem;
+    }
+}

@@ -1,7 +1,7 @@
 import { useAuth } from "@/contexts/auth/auth";
 import { motion } from "motion/react";
 import { Avatar } from "primereact/avatar";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 import { FileUpload, FileUploadErrorEvent, FileUploadSelectEvent, FileUploadUploadEvent } from 'primereact/fileupload';
 import Logger from "@/utils/log/logging";
@@ -12,6 +12,7 @@ import TransparentLoader from "@/components/Simple/TransparentLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, refreshPicture, setBreadCrumb, setPicture } from "@/global/redux/actions";
 import { AppDispatch } from "@/global/redux/store";
+import { useToast } from "@/hooks/Toast";
 
 const ChangePicture: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
@@ -26,16 +27,7 @@ const ChangePicture: React.FC = () => {
     const [mime, setMime] = useState('');
     const user : any = useAuth()
     const log = Logger.getInstance();
-    const toast = useRef<Toast>(null);
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 5000
-        });
-    };
+    const { toast, show } = useToast();
 
     const breadItems = [{ label: String(messages.change_pic_title) }];
     useEffect(() => {

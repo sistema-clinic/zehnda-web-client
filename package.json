@@ -14,6 +14,7 @@
     "@apollo/client": "^3.12.5",
     "@emotion/css": "^11.13.5",
     "@reduxjs/toolkit": "^2.5.0",
+    "chart.js": "^4.4.7",
     "country-flag-icons": "^1.5.14",
     "firebase": "^11.1.0",
     "graphql": "^16.10.0",
@@ -21,6 +22,7 @@
     "motion": "^11.17.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.1",
+    "radashi": "^12.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-intl": "^7.1.0",
@@ -28,7 +30,8 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
     "redux": "^5.0.1",
-    "sass-embedded": "^1.83.1"
+    "sass-embedded": "^1.83.1",
+    "swapy": "^1.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

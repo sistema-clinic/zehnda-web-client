@@ -8,6 +8,7 @@ import Logger from '@/utils/log/logging';
 import { doConfirmPasswordReset, doVerifyPasswordResetCode } from '@firebaseapi/authUtil';
 import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/Toast';
 
 const Reset: React.FC<{ code : string }> = ({code}) => {
     const [isChanged, setIsChanged] = useState(false);
@@ -16,7 +17,7 @@ const Reset: React.FC<{ code : string }> = ({code}) => {
     const [isPasswordInvalid, setPasswordIsInvalid] = useState(false);
     const [isConfPasswordInvalid, setConfPasswordIsInvalid] = useState(false);
     const [isResetting, setIsResetting] = useState(false);
-    const toast = useRef<Toast>(null);
+    const { toast, show } = useToast();
     const lblPasswordRef = useRef(null);
     const lblConfPasswordRef = useRef(null);
     const {messages} = useIntl();
@@ -54,15 +55,6 @@ const Reset: React.FC<{ code : string }> = ({code}) => {
         }
         
     }, []);
-
-    const show = (severityType : "success" | "info" | "warn" | "error" | "secondary" | "contrast", message: string) => {
-        toast.current?.show({
-            severity: severityType,
-            summary: String(messages.warning),
-            detail: message,
-            life: 3000
-        });
-    };
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();  
