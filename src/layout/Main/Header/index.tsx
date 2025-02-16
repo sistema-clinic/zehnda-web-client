@@ -59,6 +59,9 @@ const Header: React.FC = () => {
         if(userInfo && userInfo.photoUrl && userInfo.photoUrl !== '') {
             setAvatarUrl(userInfo.photoUrl);
         }
+        else if(user?.internalUserdata?.internalData?.photoUrl && user?.internalUserdata?.internalData?.photoUrl !== '') {
+            setAvatarUrl(user.internalUserdata.internalData.photoUrl );
+        }
         else if (user.currentUser?.photoURL && user.currentUser?.photoURL !== '') {
             log.log(user)
             setAvatarUrl(user.currentUser?.photoURL);
@@ -67,7 +70,7 @@ const Header: React.FC = () => {
             setAvatarUrl(userImage);
         }
 
-    }, [userInfo]);
+    }, [userInfo, user?.internalUserdata?.internalData?.photoUrl]);
 
     const itemRenderer = (item) => (
         <a className={`flex align-items-center p-menuitem-link p-3` } onClick={() => {menuHandler(item)}}> 
@@ -87,7 +90,7 @@ const Header: React.FC = () => {
 
     const userMemoMenu = useMemo(() => {
         let menus: any[] = []
-        if(user?.internalUserdata?.internalData?.role){
+        if(user?.internalUserdata?.internalData?.role?.menu){
             let menuData: any = user?.internalUserdata?.internalData?.role.menu.filter((e) => e.type === 'USER')
             log.log(JSON.stringify(menuData))
             const templates : Map<string, any> = new Map<string, any>()
@@ -113,7 +116,7 @@ const Header: React.FC = () => {
 
     const upperMemoMenu = useMemo(() => {
         let menus: any[] = []
-        if(user?.internalUserdata?.internalData?.role){
+        if(user?.internalUserdata?.internalData?.role?.menu){
             let menuData: any = user?.internalUserdata?.internalData?.role.menu.filter((e) => e.type === 'UPPER')
             log.log(JSON.stringify(menuData))
             const templates : Map<string, any> = new Map<string, any>()

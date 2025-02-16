@@ -12,7 +12,7 @@ let locales = {
     usermenu_change_password: "Change Password",
     uppermenu_home: "Home",
     uppermenu_contacts:"Contacts",
-    sidebarmenu_eqresume: "Resumes",
+    sidebarmenu_eqresume: "Equipment",
     sidebarmenu_prev_mto: "Preventive Maint.",
     sidebarmenu_prev_pending: "Pendings",
     sidebarmenu_corr_mto: "Corrective Maint.",

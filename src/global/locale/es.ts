@@ -11,7 +11,7 @@ let locales = {
     usermenu_settings: "Configuración",
     usermenu_change_password: "Cambiar Contraseña",
     uppermenu_home: "Inicio",
-    uppermenu_contacts:"Contactos",
+    uppermenu_contacts:"Equipos",
     sidebarmenu_eqresume: "Hoja de Vida",
     sidebarmenu_prev_mto: "Mto Preventivo",
     sidebarmenu_prev_pending: "Pendientes",

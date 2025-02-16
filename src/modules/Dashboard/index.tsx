@@ -1,4 +1,3 @@
-import { useAuth } from '@/contexts/auth/auth'
 import { motion } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import TransparentLoader from '@/components/Simple/TransparentLoader'
@@ -11,7 +10,6 @@ import { useDispatch } from 'react-redux'
 
 import './index.scss'
 const Dashboard: React.FC = () => {
-    const user : any = useAuth()
     const dispatch: AppDispatch = useDispatch();
     const [isLoading] = useState(false);
     const swapyRef = useRef<Swapy | null>(null)

@@ -33,7 +33,6 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         setInternalUserdata(userInternalAuth)
-
         if(currentUser && userInternalAuth.internalData){
             dispatch(getCountries({token: currentUser.accessToken, code: userInternalAuth.internalData.language})) 
             dispatch(setUserLanguage({language : userInternalAuth.internalData.language || 'en'}))
@@ -49,6 +48,7 @@ export const AuthProvider = ({ children }) => {
             const isEmail: boolean = user.providerData.some(
                 (provider: { providerId: string }) => provider.providerId === "password"
             );
+            
             if(isEmail)
                 setIsEmailUser(isEmail);
             else

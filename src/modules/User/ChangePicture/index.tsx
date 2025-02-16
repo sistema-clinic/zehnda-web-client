@@ -10,7 +10,7 @@ import { Button } from "primereact/button";
 import { Toast } from "primereact/toast";
 import TransparentLoader from "@/components/Simple/TransparentLoader";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, refreshPicture, setBreadCrumb, setPicture } from "@/global/redux/actions";
+import { getAuthInfo, getUserInfo, setBreadCrumb, setPicture } from "@/global/redux/actions";
 import { AppDispatch } from "@/global/redux/store";
 import { useToast } from "@/hooks/Toast";
 
@@ -92,8 +92,10 @@ const ChangePicture: React.FC = () => {
         try {
             setIsLoading(true)
             let picRes = await dispatch(setPicture({uid: user.currentUser.uid, pictureUrl: image, mime: mime, token: user.currentUser.accessToken}))
-            if(picRes && picRes.payload && picRes.payload.result && picRes.payload.result.success){             
-                dispatch(refreshPicture({user : {photoUrl: picRes.payload.user.photoUrl }}))
+            if(picRes && picRes.payload && picRes.payload.result && picRes.payload.result.success){            
+                //dispatch(refreshPicture({user : {photoUrl: picRes.payload.user.photoUrl }}))
+                await dispatch(getUserInfo({uid: user.currentUser.uid, token: user.currentUser.accessToken}))   
+                await dispatch(getAuthInfo({uid : user.currentUser.uid, token: user.currentUser.accessToken, displayName: '', authType: '', email: '', phoneNumber: '', photoUrl: picRes.payload.user.photoUrl}))  
                 setReadyToUpdate(false)
                 show('success', String(messages.change_pic_file_change_success))
                 setMessage(String(messages.change_pic_file_max))          
@@ -177,7 +179,9 @@ const ChangePicture: React.FC = () => {
             setIsLoading(true)
             let picRes = await dispatch(setPicture({uid: user.currentUser.uid, pictureUrl: userImage, mime: mime, token: user.currentUser.accessToken}))
             if(picRes && picRes.payload && picRes.payload.result && picRes.payload.result.success){  
-                dispatch(refreshPicture({user : {photoUrl: userImage}}))
+                //dispatch(refreshPicture({user : {photoUrl: userImage}}))
+                await dispatch(getUserInfo({uid: user.currentUser.uid, token: user.currentUser.accessToken}))   
+                await dispatch(getAuthInfo({uid : user.currentUser.uid, token: user.currentUser.accessToken, displayName: '', authType: '', email: '', phoneNumber: '', photoUrl: userImage}))  
                 show('success', String(messages.change_pic_file_removed_success))
             }
             else {

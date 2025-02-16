@@ -185,6 +185,7 @@ export const UserSlice = createSlice({
             return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
         },
         refreshPicture: (state, action) => {
+            console.log(state.user)
             return action.payload && Object.keys(action.payload).length > 0 ? { ...state, ...action.payload } : { ...INITIAL_STATE }
         },
     },

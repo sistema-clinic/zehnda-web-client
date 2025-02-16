@@ -12,6 +12,7 @@ const INITIAL_STATE: any = {
         email : '',
         language : '',
         authType : '',
+        photoUrl: '',
         role : {
             id: -1,
             name: "",
@@ -46,7 +47,8 @@ export const getAuthInfo = createAsyncThunk('utils/auth/getAuthInfo',
                         email
                         authType
                         language
-                        countryCode                          
+                        countryCode
+                        photoUrl                          
                     }                   
                 }               
             `, {uid: uid, displayName: displayName, email: email, phoneNumber: phoneNumber, photoUrl: photoUrl, authType: authType, language: language}, url, { token: token })
@@ -58,6 +60,7 @@ export const getAuthInfo = createAsyncThunk('utils/auth/getAuthInfo',
             result.authType = user.getUserInfo.authType
             result.firstName = user.getUserInfo.firstName
             result.lastName = user.getUserInfo.lastName
+            result.photoUrl = user.getUserInfo.photoUrl
 
             let role : any = await clientQuery(`
                 query GetRoleData($uid: String!) {

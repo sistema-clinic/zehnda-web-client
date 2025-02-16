@@ -132,7 +132,7 @@ const SidebarMenu: React.FC = () => {
 
     const sidebarMemoMenu = useMemo(() => {
         let menus: any[] = []
-        if(user?.internalUserdata?.internalData?.role){
+        if(user?.internalUserdata?.internalData?.role?.menu){
             let menuData: any = user?.internalUserdata?.internalData?.role.menu.filter((e) => e.type === 'SIDEBAR')
             log.log(JSON.stringify(menuData))
             const templates : Map<string, any> = new Map<string, any>()
