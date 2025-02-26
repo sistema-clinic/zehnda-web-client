@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: SidebarFooter
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import styled from '@emotion/styled';
 
 interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -46,6 +51,11 @@ const StyledBadge = styled.div<BadgeProps>`
   }}
 `;
 
+/**
+ * Componente para mostrar un badge en el menu lateral
+ * @param param0 
+ * @returns 
+ */
 const SidebarBadge: React.FC<BadgeProps> = ({
     children,
     variant = 'info',

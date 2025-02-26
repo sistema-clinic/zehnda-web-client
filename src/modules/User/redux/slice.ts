@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: UserSlice
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import { resetALL } from "@/global/redux/actions";
 import { clientQuery, clientMutation } from "@/utils/database/apolloClient";
 import Logger from "@/utils/log/logging";
@@ -10,6 +15,9 @@ const INITIAL_STATE: any = {
 
 const log = Logger.getInstance();
 
+/**
+ * Función para obtener la información del usuario
+ */
 export const getUserInfo = createAsyncThunk(
     'user/getUserInfo',
     async ({uid, token}: any, { getState }) => {
@@ -56,6 +64,9 @@ export const getUserInfo = createAsyncThunk(
     }*/
 )
 
+/**
+ * Función para obtener la imagen del usuario
+ */
 export const getUserPicture = createAsyncThunk(
     'user/getUserPicture',
     async ({uid, token}: any, { getState }) => {
@@ -84,7 +95,9 @@ export const getUserPicture = createAsyncThunk(
     }
 )
 
-
+/**
+ * 
+ */
 export const setUserInfo = createAsyncThunk(
     'user/setUserInfo',
     async ({uid, fName, lName, countryCode, phoneNumber, gender, languageCode, token}: any, { getState }) => {
@@ -133,6 +146,9 @@ export const setUserInfo = createAsyncThunk(
     }
 )
 
+/**
+ * Funcion para actualizar la imagen del usuario
+ */
 export const setPicture = createAsyncThunk(
     'user/setPicture',
     async ({uid, pictureUrl, mime, token}: any, { getState }) => {
@@ -174,6 +190,9 @@ export const setPicture = createAsyncThunk(
     }
 )
 
+/**
+ * Slice para el manejo de la información del usuario
+ */
 export const UserSlice = createSlice({
     name: 'user',
     initialState: INITIAL_STATE,

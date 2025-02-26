@@ -1,9 +1,18 @@
+/**********************************************************
+ * Componente: App
+ * Desarrolador: Carlos Morante
+ * Feha: 10 enero 2025
+***********************************************************/
 import { useAuth } from '@/contexts/auth/auth'
 import './index.scss'
 import { motion } from 'motion/react'
 import { useState } from 'react'
 import TransparentLoader from '@/components/Simple/TransparentLoader'
 
+/**
+ * clase para renderizar la vista de contactos
+ * @returns Clase
+ */
 const Contacts: React.FC = () => {
     const user : any = useAuth()
     const [isLoading] = useState(false);

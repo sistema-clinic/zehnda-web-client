@@ -1,3 +1,9 @@
+/**********************************************************
+ * Componente: Auth
+ * Description: Crea el contexto de authetificación de la app
+ * Desarrolador: Carlos Morante
+ * Feha: 18 Diciembre 2024
+***********************************************************/
 import  React, { useContext,  useEffect, useState } from "react";
 import { auth } from "@firebaseapi/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
@@ -13,6 +19,11 @@ export function useAuth() {
     return useContext(AuthContext);
 }
 
+/**
+ * Proveedor de autenticación usando firebase
+ * @param param0 
+ * @returns 
+ */
 export const AuthProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
@@ -28,6 +39,7 @@ export const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, []);
       
+    //Datos del usuario que viene de la base de datos
     const userInternalAuth = useSelector((state : any) => state.authReducer);
     const dispatch = useAppDispatch();
 
@@ -41,6 +53,7 @@ export const AuthProvider = ({ children }) => {
         log.log("userInternalAuth: ", userInternalAuth)
       }, [userInternalAuth]);
       
+    //Se ejecuta cuando el usuario se autentica
     async function initializeUser(user: any) {    
         log.log('user: ', user)
         if (user) {

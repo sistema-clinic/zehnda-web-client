@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: MainPage
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import Loader from '@/components/Simple/Loader';
 import { useAuth } from '@/contexts/auth/auth';
 import { changePage } from '@/global/redux/actions';
@@ -16,6 +21,10 @@ const ChangePicture = React.lazy(() => import('@/modules/User/ChangePicture'));
 const Contacts = React.lazy(() => import('@/modules/Contacts'));
 const Dashboard = React.lazy(() => import('@/modules/Dashboard'));
 
+/**
+ * Modulo contenedor de la aplicación
+ * @returns 
+ */
 const MainPage: React.FC = () => {
     const user : any = useAuth()
     const commonReducer = useSelector((state : any) => state.commonReducer);
@@ -48,7 +57,7 @@ const MainPage: React.FC = () => {
                 <div className='flex flex-col w-full'>
                     <Header />                   
                     <div className="min-vh-100 flex-1">
-                        
+                        {/*Aqui se cargan los modulos de la app usando lazy loading */}
                         <Content>
                             {commonReducer.page === 'profile' && <Suspense fallback={<Loader/>}><Profile /></Suspense>} 
                             {commonReducer.page === 'changePassword' && <Suspense fallback={<Loader/>}><ChangePassword /></Suspense>} 

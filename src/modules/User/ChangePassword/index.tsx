@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: ChangePicture
+ * Desarrolador: Carlos Morante
+ * Feha: 30 Diciembre 2024
+***********************************************************/
 import { motion } from "motion/react";
 import { FloatLabel } from "primereact/floatlabel";
 import { Toast } from 'primereact/toast';
@@ -21,6 +26,10 @@ interface PasswordFormData {
     confirm_password: string;
 }
 
+/**
+ * Componente para cambiar la contraseña del usuario
+ * @returns 
+ */
 const ChangePassword: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const [isPasswordInvalid, setIsPasswordInvalid] = useState(false);
@@ -61,6 +70,11 @@ const ChangePassword: React.FC = () => {
 
     }, []);
     
+    /**
+     * Función para manejar el evento de submit
+     * @param e 
+     * @returns 
+     */
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if(formData.original_password === '') {    

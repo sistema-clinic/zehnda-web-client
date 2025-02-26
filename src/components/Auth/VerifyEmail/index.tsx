@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: VerifyEmail
+ * Desarrolador: Carlos Morante
+ * Feha: 16 Diciembre 2024
+***********************************************************/
 import { motion } from 'motion/react';
 import React, { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
@@ -9,6 +14,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import Logger from '@/utils/log/logging';
 
+/**
+ * Componente de verificacion de email
+ * @param param0 
+ * @returns 
+ */
 const VerifyEmail: React.FC<{ code: string }> = ({ code: code }) => {
     const [isVerified, setIsVerified] = useState(true);
     const [startVerification, setStartVerification] = useState(true);

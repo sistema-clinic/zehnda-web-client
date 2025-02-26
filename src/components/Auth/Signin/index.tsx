@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Signin
+ * Desarrolador: Carlos Morante
+ * Feha: 16 Diciembre 2024
+***********************************************************/
 import React, { useRef, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
@@ -13,6 +18,10 @@ import { doCreateUserWithEmailAndPassword, doSendEmailVerification } from '@fire
 import './index.scss';
 import { useToast } from '@/hooks/Toast';
 
+/**
+ * Componente de creacion de usuario
+ * @returns 
+ */
 const Signin: React.FC = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

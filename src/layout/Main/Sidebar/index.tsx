@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: SidebarMenu
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import { Sidebar, Menu, MenuItem, SubMenu, MenuItemStyles, menuClasses } from 'react-pro-sidebar';
 import { useState, useEffect, useMemo } from 'react';
 import Graph from '@layout/Main/Sidebar/Icons/Graph';
@@ -26,6 +31,10 @@ const hexToRgba = (hex: string, alpha: number) => {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
+/**
+ * Componente para renderizar el menú lateral de la aplicación
+ * @returns 
+ */
 const SidebarMenu: React.FC = () => {
     const log = Logger.getInstance();
     const [theme] = useState<Theme>('dark');
@@ -57,6 +66,7 @@ const SidebarMenu: React.FC = () => {
         };
     }, []);
 
+    // Temas de la barra, solo hay dos temas, oscuro y claro, se pueden agregar más
     const themes = {
         light: {
             sidebar: {
@@ -95,7 +105,7 @@ const SidebarMenu: React.FC = () => {
             },
         },
     };
-
+    //Estilos de los items del menú
     const menuItemStyles: MenuItemStyles = {
         root: {
             fontSize: '15px',
@@ -130,6 +140,7 @@ const SidebarMenu: React.FC = () => {
         }),
     };
 
+    //Construcción del menú memoized
     const sidebarMemoMenu = useMemo(() => {
         let menus: any[] = []
         if(user?.internalUserdata?.internalData?.role?.menu){
@@ -144,6 +155,7 @@ const SidebarMenu: React.FC = () => {
         return menus
     }, [user.internalUserdata.internalData.role.menu, commonReducer.language])
 
+    //Iconos del menu tipo svg
     const getIcon = (icon) =>{
         try {
             if (icon === 'Doc'){

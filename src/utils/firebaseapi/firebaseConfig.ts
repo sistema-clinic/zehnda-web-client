@@ -1,3 +1,9 @@
+/**********************************************************
+ * Componente: firebaseConfig
+ * Desarrolador: Carlos Morante
+ * Descripcion: Configuración de Firebase
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";

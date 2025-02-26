@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: LoginPage
+ * Desarrolador: Carlos Morante
+ * Feha: 26 Diciembre 2024
+***********************************************************/
 import Login from '@/components/Auth/Login';
 import { useAuth } from '@/contexts/auth/auth';
 import { Navigate } from 'react-router-dom';
@@ -5,6 +10,10 @@ import Loader from '@/components/Simple/Loader';
 
 import logo from '@assets/logo.png';
 
+/**
+ * Modulo para log in
+ * @returns 
+ */
 const LoginPage: React.FC = () => {
     const user : any = useAuth()
 

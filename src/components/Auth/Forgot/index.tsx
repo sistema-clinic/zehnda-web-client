@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Forgot
+ * Desarrolador: Carlos Morante
+ * Feha: 16 Diciembre 2024
+***********************************************************/
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -10,6 +15,10 @@ import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/Toast';
 
+/**
+ * Componente para recuperar contraseña
+ * @returns 
+ */
 const Forgot: React.FC = () => {
     const [email, setEmail] = useState('');
     const [isEmailInvalid, setEmailIsInvalid] = useState(false);

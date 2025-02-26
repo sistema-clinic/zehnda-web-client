@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: SidebarHeader
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import styled from '@emotion/styled';
 import { SidebarHeaderProps } from '@/global/interfaces';
 import logo from '@assets/isotype.svg';
@@ -15,6 +20,11 @@ const StyledSidebarHeader = styled.div`
     }
 `;
 
+/**
+ * Comopnente del encabezado del menu lateral
+ * @param param0 
+ * @returns 
+ */
 const SidebarHeader: React.FC<SidebarHeaderProps> = ({ collapsed, rtl, ...rest }) => {
     return (
       <StyledSidebarHeader {...rest}>

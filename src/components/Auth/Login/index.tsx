@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Reset
+ * Desarrolador: Carlos Morante
+ * Feha: 16 Diciembre 2024
+***********************************************************/
 import React, { useEffect, useRef, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Password } from 'primereact/password';
@@ -14,6 +19,10 @@ import { useToast } from "@/hooks/Toast";
 
 import './index.scss';
 
+/**
+ * Componente de autenticación e inicio de sesión
+ * @returns 
+ */
 const Login: React.FC = () => {
     const user : any = useAuth()
     const [username, setUsername] = useState('');

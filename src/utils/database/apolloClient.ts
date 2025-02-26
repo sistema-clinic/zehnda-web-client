@@ -1,7 +1,21 @@
+/**********************************************************
+ * Componente: apolloClient
+ * Desarrolador: Carlos Morante
+ * Descripción: Clase utilitaria para manejar las peticiones al backend usando apollo
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import { ApolloClient, ApolloLink, InMemoryCache, HttpLink } from '@apollo/client';
 import gql from 'graphql-tag'
 import { onError } from "@apollo/client/link/error";
 
+/**
+ * cliente para realizar consultas al backend
+ * @param query la consulta a realizar
+ * @param variables las variables de la consulta
+ * @param endpoint la url de Graphql
+ * @param headers encabezados necesarios para la consulta
+ * @returns json de la consulta
+ */
 export const clientQuery = async (query: string | readonly string[], variables: any, endpoint: string, headers: any = {}) => {
     const authLink = new ApolloLink((operation, forward) => {
         operation.setContext({
@@ -44,6 +58,15 @@ export const clientQuery = async (query: string | readonly string[], variables: 
         });
     })
 }
+
+/**
+ * cliente para realizar mutaciones al backend
+ * @param query la consulta a realizar
+ * @param variables las variables de la consulta
+ * @param endpoint la url de Graphql
+ * @param headers encabezados necesarios para la consulta
+ * @returns 
+ */
 export const clientMutation = async (query: string | readonly string[], variables: any, endpoint: string, headers: any = {}) => {
 
 	const authLink = new ApolloLink((operation, forward) => {

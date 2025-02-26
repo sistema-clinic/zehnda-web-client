@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: ChangePicture
+ * Desarrolador: Carlos Morante
+ * Feha: 27 Diciembre 2024
+***********************************************************/
 import { useAuth } from "@/contexts/auth/auth";
 import { motion } from "motion/react";
 import { Avatar } from "primereact/avatar";
@@ -14,6 +19,10 @@ import { getAuthInfo, getUserInfo, setBreadCrumb, setPicture } from "@/global/re
 import { AppDispatch } from "@/global/redux/store";
 import { useToast } from "@/hooks/Toast";
 
+/**
+ * Componente para cambiar la imagen de perfil del usuario
+ * @returns  
+ */
 const ChangePicture: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const {messages} = useIntl();
@@ -30,6 +39,7 @@ const ChangePicture: React.FC = () => {
     const { toast, show } = useToast();
 
     const breadItems = [{ label: String(messages.change_pic_title) }];
+
     useEffect(() => {
         setIsLoading(true)
         dispatch(setBreadCrumb({breadCrumb : breadItems}))
@@ -88,6 +98,9 @@ const ChangePicture: React.FC = () => {
         setReadyToRemove(false)
     }
 
+    /**
+     * Cambia la imagen del usuario
+     */
     const saveImage = async () => {
         try {
             setIsLoading(true)
@@ -165,6 +178,9 @@ const ChangePicture: React.FC = () => {
         }
     }
 
+    /**
+     * Remueve la imagen del usuario
+     */
     const removeImage = async () => {
         try {
             let userImage: string = ''
@@ -179,7 +195,6 @@ const ChangePicture: React.FC = () => {
             setIsLoading(true)
             let picRes = await dispatch(setPicture({uid: user.currentUser.uid, pictureUrl: userImage, mime: mime, token: user.currentUser.accessToken}))
             if(picRes && picRes.payload && picRes.payload.result && picRes.payload.result.success){  
-                //dispatch(refreshPicture({user : {photoUrl: userImage}}))
                 await dispatch(getUserInfo({uid: user.currentUser.uid, token: user.currentUser.accessToken}))   
                 await dispatch(getAuthInfo({uid : user.currentUser.uid, token: user.currentUser.accessToken, displayName: '', authType: '', email: '', phoneNumber: '', photoUrl: userImage}))  
                 show('success', String(messages.change_pic_file_removed_success))

@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Header
+ * Desarrolador: Carlos Morante
+ * Feha: 20 Diciembre 2024
+***********************************************************/
 import { Menubar } from 'primereact/menubar';
 import { Badge } from 'primereact/badge';
 import { Avatar } from 'primereact/avatar';  
@@ -18,6 +23,11 @@ import { useIntl } from 'react-intl';
 import './index.scss'
 import { Button } from 'primereact/button';
 
+/**
+ * Componente que muestra la barra principal de la app
+ * @param param0 
+ * @returns 
+ */
 const Header: React.FC = () => {
     const op = useRef<OverlayPanel>(null);
     const opAlerts = useRef<OverlayPanel>(null);
@@ -140,6 +150,7 @@ const Header: React.FC = () => {
                 <Badge value="2" style={{ top: "5px", right: "4px" }}></Badge>
             </div>
             
+            {/* Avatar de la app */}
             <Avatar          
                 style={{ cursor: 'pointer',
                     border: '4px solid #b1a3ff', // Color del aro

@@ -1,8 +1,5 @@
 let locales = {};
 
-import welcome from '../../Welcome/locale/es'
-locales = { ...locales, ...welcome };
-
 import login from '../../Auth/Login/locale/es'
 locales = { ...locales, ...login };
 

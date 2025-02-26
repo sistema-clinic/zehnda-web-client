@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Reset
+ * Desarrolador: Carlos Morante
+ * Feha: 16 Diciembre 2024
+***********************************************************/
 import React, { useRef, useState, useEffect } from 'react';
 import { Password } from 'primereact/password';
 import { Button } from 'primereact/button';
@@ -10,6 +15,11 @@ import { motion } from "motion/react";
 import { Link } from 'react-router-dom';
 import { useToast } from '@/hooks/Toast';
 
+/**
+ * Componente de restablecimiento de contraseña
+ * @param param0 
+ * @returns 
+ */
 const Reset: React.FC<{ code : string }> = ({code}) => {
     const [isChanged, setIsChanged] = useState(false);
     const [password, setPassword] = useState('');

@@ -1,3 +1,9 @@
+/**********************************************************
+ * Componente: GlobalSlice
+ * Description: Global slice para metodos generales de la app
+ * Desarrolador: Carlos Morante
+ * Feha: 22 Diciembre 2024
+***********************************************************/
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Logger from "@utils/log/logging";
 import { resetALL } from "./actions";

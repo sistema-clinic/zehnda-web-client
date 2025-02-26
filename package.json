@@ -11,7 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@apollo/client": "^3.12.5",
+    "@apollo/client": "^3.13.1",
     "@emotion/css": "^11.13.5",
     "@reduxjs/toolkit": "^2.5.0",
     "chart.js": "^4.4.7",
@@ -23,8 +23,8 @@
     "primeicons": "^7.0.0",
     "primereact": "^10.9.1",
     "radashi": "^12.3.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
     "react-intl": "^7.1.0",
     "react-pro-sidebar": "^1.1.0",
     "react-redux": "^9.2.0",

@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: ApplyCodePage
+ * Desarrolador: Carlos Morante
+ * Feha: 26 Diciembre 2024
+***********************************************************/
 import { useState } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import Reset from "@/components/Auth/Reset";
@@ -7,6 +12,10 @@ import logo from '@assets/logo.png';
 import Loader from "@/components/Simple/Loader";
 import { useIntl } from "react-intl";
 
+/**
+ * Modulo para reiniciar o verificar email
+ * @returns 
+ */
 const ApplyCodePage: React.FC = () => {
     const [searchParams] = useSearchParams();
     const user : any = useAuth()

@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: App
+ * Desarrolador: Carlos Morante
+ * Feha: 30 Diciembre 2024
+***********************************************************/
 import { motion } from 'motion/react'
 import { useState, useEffect, useRef } from 'react'
 import TransparentLoader from '@/components/Simple/TransparentLoader'
@@ -7,8 +12,12 @@ import { useIntl } from 'react-intl'
 import { setBreadCrumb } from '@/global/redux/actions'
 import { AppDispatch } from '@/global/redux/store'
 import { useDispatch } from 'react-redux'
-
 import './index.scss'
+
+/**
+ * Componente para renderizar el dashboard
+ * @returns 
+ */
 const Dashboard: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const [isLoading] = useState(false);
@@ -25,6 +34,7 @@ const Dashboard: React.FC = () => {
     const {messages} = useIntl();
     const breadItems = [{ label: String(messages.dashboard_title) }];
 
+    //Atención: Estos son datos quemados a modo de ejemplo, remover en producción
     useEffect(() => {
         dispatch(setBreadCrumb({breadCrumb : breadItems}))
         const data1 = {

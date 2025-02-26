@@ -1,9 +1,11 @@
 
 @layer tailwind-base, primereact, tailwind-utilities;
 
+/* Esto es necesario para primereact */
 @import "primereact/resources/themes/lara-light-indigo/theme.css"; /* Tema */
 @import "primeicons/primeicons.css"; /* Iconos */
 
+/* Esto es necesario para poder usar tailwind primereact */
 @layer tailwind-base {
   @tailwind base;
 }
@@ -26,17 +28,17 @@ body {
 }
 
 .content-scroll::-webkit-scrollbar, .ps-sidebar-container::-webkit-scrollbar {
-  width: 12px;               /* width of the entire scrollbar */
+  width: 12px;               /* ancho de toda la barra de desplazamiento */
 }
 
 .content-scroll::-webkit-scrollbar-track, .ps-sidebar-container::-webkit-scrollbar-track {
-  background: white;        /* color of the tracking area */
+  background: white;        /* color del área de seguimiento */
 }
 
 .content-scroll::-webkit-scrollbar-thumb, .ps-sidebar-container::-webkit-scrollbar-thumb {
-  background-color: gray;    /* color of the scroll thumb */
-  border-radius: 20px;       /* roundness of the scroll thumb */
-  border: 3px solid white;  /* creates padding around scroll thumb */
+  background-color: gray;    /* color del pulgar de desplazamiento */
+  border-radius: 20px;       /* redondez del pulgar de desplazamiento */
+  border: 3px solid white;  /* crea un relleno alrededor del pulgar de desplazamiento */
 }
 
 .relative {

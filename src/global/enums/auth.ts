@@ -1,3 +1,8 @@
+/**********************************************************
+ * Descripcion: Enums generales de la app
+ * Desarrolador: Carlos Morante
+ * Feha: 22 Diciembre 2024
+***********************************************************/
 export enum AuthMode {
     PasswordResetSuccess = 1,
     PasswordResetFailed = 2,

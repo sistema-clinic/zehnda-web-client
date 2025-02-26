@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: App
+ * Desarrolador: Carlos Morante
+ * Feha: 15 Diciembre 2024
+***********************************************************/
 import { useSelector } from 'react-redux';
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
@@ -11,13 +16,21 @@ import { AuthProvider } from '@providers/auth/auth'
 import ForgotPage from '@/modules/Auth/Forgot';
 import ApplyCodePage from './modules/Auth/Apply';
 
+/**
+ * Componente para renderizar la aplicación principal
+ * @returns 
+ */
 function App() {
   const lang = useSelector((state : any) => state.commonReducer.language);
   return (
     <>
+      {/* Proveedor de lenguaje */}
       <IntlProvider locale={lang} messages={locale[lang]}>
+        {/* Proveedor de autenticación */}
         <AuthProvider>
+          {/* Proveedor de los componentes prime react */}
           <PrimeReactProvider >
+            {/* Rutas */}
             <Routes>
                 <Route path='/' element={<Navigate to="/main" />} />
                 <Route path="*" element={<Navigate to="/main" />} />

@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: SigninPage
+ * Desarrolador: Carlos Morante
+ * Feha: 26 Diciembre 2024
+***********************************************************/
 import Signin from '@/components/Auth/Signin';
 import { useAuth } from '@/contexts/auth/auth';
 import { Navigate } from 'react-router-dom';
@@ -5,6 +10,10 @@ import Loader from '@/components/Simple/Loader';
 
 import logo from '@assets/logo.png';
 
+/**
+ * Modulo para sign in
+ * @returns 
+ */
 const SigninPage: React.FC = () => {
     const user : any = useAuth()
     return (

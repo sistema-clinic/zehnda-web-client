@@ -1,3 +1,9 @@
+/**********************************************************
+ * Componente: CountryFlags
+ * Description: Componentes que representan banderas de paises
+ * Desarrolador: Carlos Morante
+ * Feha: 12 Enero 2025
+***********************************************************/
 import {
     AC,
     AD,
@@ -516,6 +522,11 @@ interface CountryFlagsInterface {
     code: string
 }
 
+/**
+ * Componente que representa banderas de paises
+ * @param param0 
+ * @returns 
+ */
 const CountryFlags: React.FC<CountryFlagsInterface> = ({code}) => {
     const FlagComponent = flagsMap[code.toUpperCase().replace(/\s/g, '')] || null;
     return (

@@ -1,3 +1,8 @@
+/**********************************************************
+ * Componente: Profile
+ * Desarrolador: Carlos Morante
+ * Feha: 25 Diciembre 2024
+***********************************************************/
 import React, { useState, useEffect, useRef } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -28,6 +33,10 @@ interface ProfileFormData {
     phone_number?: string;
 }
 
+/**
+ * Componente para renderizar el formulario de edicion de perfil del usuario
+ * @returns 
+ */
 const Profile: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
     const log = Logger.getInstance();
@@ -68,6 +77,10 @@ const Profile: React.FC = () => {
 
     let breadItems = [{ label: String(messages.profile_profile) }];
 
+    /**
+     * Maneja el cambio de los campos del formulario
+     * @param e 
+     */
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -76,6 +89,11 @@ const Profile: React.FC = () => {
         }));
     };
 
+    /**
+     * Manejar el envio del formulario
+     * @param e
+     * @returns 
+     */
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -221,6 +239,7 @@ const Profile: React.FC = () => {
 
         return <span>{props.placeholder}</span>;
     };
+
     const countryOptionTemplate = (option) => {
         return (
             <div className="flex align-items-center space-x-2">
