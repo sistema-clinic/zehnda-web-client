@@ -31,7 +31,8 @@
     "react-router-dom": "^7.1.1",
     "redux": "^5.0.1",
     "sass-embedded": "^1.83.1",
-    "swapy": "^1.0.5"
+    "swapy": "^1.0.5",
+    "zehnda": "file:"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
